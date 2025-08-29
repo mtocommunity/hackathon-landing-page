@@ -4,3 +4,7 @@ compatibility_date = "2025-08-28"
 [assets]
 directory = "./dist/"
 not_found_handling = "404-page"
+
+[vars]
+TURSO_DATABASE_URL=""
+TURSO_AUTH_TOKEN=""

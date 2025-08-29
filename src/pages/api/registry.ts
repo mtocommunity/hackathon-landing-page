@@ -1,20 +1,23 @@
-import { turso } from "../../backend/database-connection";
+import { createClient } from "@libsql/client";
 
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  let data;
-  try {
-    data = request.body ? await request.json() : null;
-  } catch (error) {
-    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
-      status: 400,
-    });
-  }
-
-  const timestamp = new Date().toISOString();
+  const turso = createClient({
+    url: locals.runtime.env.TURSO_DATABASE_URL,
+    authToken: locals.runtime.env.TURSO_AUTH_TOKEN,
+  });
 
   try {
+    const data = request.body
+      ? ((await request.json()) as { email: string })
+      : null;
+
+    if (data === null || !data.email) {
+      throw new Error("Invalid JSON");
+    }
+
+    const timestamp = new Date().toISOString();
     const insert = await turso.execute(
       "INSERT INTO emails_pre (email, timestamp) VALUES (?, ?)",
       [data.email, timestamp]
@@ -25,9 +28,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       })
     );
   } catch (error) {
-    console.error("Error inserting data:", error);
-    return new Response(JSON.stringify({ error: "Failed to insert data" }), {
-      status: 500,
+    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
+      status: 400,
     });
   }
 };
