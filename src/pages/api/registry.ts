@@ -2,7 +2,7 @@ import { turso } from "../../backend/database-connection";
 
 import type { APIRoute } from "astro";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   let data;
   try {
     data = request.body ? await request.json() : null;

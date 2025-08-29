@@ -13,6 +13,9 @@ export default defineConfig({
 
   adapter: cloudflare({
     platformProxy: { enabled: true },
+    workerEntryPoint: {
+      path: "/api/registry",
+    },
   }),
   output: "server",
 });
