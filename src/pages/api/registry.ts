@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const query = await turso.execute(
-      "SELECT COUNT(*) as count FROM emails_pre WHERE email = ?",
+      "SELECT * as count FROM emails_pre WHERE email = ?",
       [data.email]
     );
     const count = query.rows.length || 0;
