@@ -1,16 +1,127 @@
 ---
-
+import "../styles/global.css";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https://mtocommunity.com/favicon-32x32.png"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Pre-inscripción Hackathon | MTO x Mantaro</title>
+  </head>
+  <body>
+    <div class="w-screen h-screen p-4 font-mono">
+      <div
+        class="bg-gradient-to-br from-[#E41476] via-[#101B37] to-[#02C8ED] p-1 h-full w-full"
+      >
+        <div
+          class="bg-white h-full w-full flex flex-col items-center justify-between p-8 md:p-36 xl:p-16"
+        >
+          <div class="flex flex-col items-center gap-2">
+            <h1 class="text-3xl font-bold md:text-4xl">HACKATHON</h1>
+            <p class="text-xs text-center max-w-md mt-2 md:text-base">
+              Suscríbete con tu correo electrónico y sé el primero en recibir
+              actualizaciones sobre la próxima hackathon presencial organizada
+              por Many To One Community junto a Mantaro Systems.
+            </p>
+          </div>
+          <div
+            class="w-full flex flex-col gap-2 items-center md:gap-4 xl:w-1/2"
+          >
+            <input
+              type="email"
+              placeholder="Ingresa tu correo electrónico"
+              class="text-xs w-full px-2 py-1 border border-gray-700 rounded-md md:text-base xl:w-2/3 2xl:w-1/2"
+            />
+            <button
+              class="bg-[#E41476] text-white rounded-md py-1 px-2 text-xs w-min md:text-base"
+              >Suscribirse</button
+            >
+          </div>
+          <div class="flex gap-4 h-10 w-full items-center xl:w-1/3">
+            <div class="flex-1">
+              <img src="/mto-community.webp" alt="mto-community.webp" />
+            </div>
+            <div class="w-3">
+              <img src="/x.webp" alt="x.webp" />
+            </div>
+            <div class="flex-1">
+              <img src="/mantaro-systems.webp" alt="mantaro-systems.webp" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="modal"
+        class="absolute w-full h-full top-0 left-0 hidden items-center justify-center flex-col gap-4"
+        onclick="closeModal()"
+      >
+        <div class="absolute bg-black w-full h-full z-0 opacity-30"></div>
+        <div
+          class="z-20 bg-white p-3 text-sm w-2/3 flex flex-col items-center rounded-md gap-4"
+        >
+          <div id="message" class="text-black text-center"></div>
+          <button
+            class="bg-[#E41476] text-white rounded-md py-1 px-2 text-xs w-min"
+            >Ok!</button
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function showModal(message: string) {
+      const modal = document.getElementById("modal") as HTMLElement;
+      const messageDiv = document.getElementById("message") as HTMLElement;
+      messageDiv.innerText = message;
+      modal.style.display = "flex";
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("modal") as HTMLElement;
+      modal.style.display = "none";
+    }
+
+    document.getElementById("modal")?.addEventListener("click", closeModal);
+
+    (document.querySelector("button") as HTMLElement).onclick = async () => {
+      const emailInput = document.querySelector(
+        'input[type="email"]'
+      ) as HTMLInputElement;
+      const email = emailInput.value;
+
+      if (!email) {
+        showModal("Por favor, ingresa un correo electrónico válido.");
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "https://hackathon.mtocommunity.com/api/registry",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }
+        );
+
+        if (response.ok) {
+          showModal("¡Gracias por suscribirte! Te mantendremos informado.");
+          emailInput.value = "";
+        } else {
+          showModal("Ocurrió un error. Por favor, intenta nuevamente.");
+        }
+      } catch (error) {
+        showModal("Ocurrió un error. Por favor, intenta nuevamente.");
+      }
+    };
+  </script>
 </html>

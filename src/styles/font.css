@@ -1,0 +1,13 @@
+/* Font /font/mono/JetBrainsMono-VariableFont_wght.ttf */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/font/mono/JetBrainsMono-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --default-mono-font-family: "JetBrains Mono", monospace;
+}
