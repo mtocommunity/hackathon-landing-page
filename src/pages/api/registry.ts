@@ -13,7 +13,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? ((await request.json()) as { email: string })
       : null;
 
-    if (data === null || !data.email) {
+    if (
+      data === null ||
+      !data.email ||
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) === false
+    ) {
       throw new Error("Invalid JSON");
     }
 
