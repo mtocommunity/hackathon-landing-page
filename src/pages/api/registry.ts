@@ -21,7 +21,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       "SELECT COUNT(*) as count FROM emails_pre WHERE email = ?",
       [data.email]
     );
-    const count = query.rows[0]?.length || 0;
+    const count = query.rows.length || 0;
     if (count > 0) {
       return new Response(
         JSON.stringify({ message: "El correo ya esta registrado" }),
