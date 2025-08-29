@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     const query = await turso.execute(
-      "SELECT * as count FROM emails_pre WHERE email = ?",
+      "SELECT * FROM emails_pre WHERE email = ?",
       [data.email]
     );
     const count = query.rows.length || 0;
@@ -41,7 +41,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       })
     );
   } catch (error) {
-    return new Response(JSON.stringify({ error: error }), {
+    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
       status: 400,
     });
   }
