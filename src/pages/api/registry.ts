@@ -17,14 +17,27 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw new Error("Invalid JSON");
     }
 
+    const query = await turso.execute(
+      "SELECT COUNT(*) as count FROM emails_pre WHERE email = ?",
+      [data.email]
+    );
+    const count = query.rows[0]?.length || 0;
+    if (count > 0) {
+      return new Response(
+        JSON.stringify({ message: "El correo ya esta registrado" }),
+        { status: 200 }
+      );
+    }
+
     const timestamp = new Date().toISOString();
-    const insert = await turso.execute(
+
+    await turso.execute(
       "INSERT INTO emails_pre (email, timestamp) VALUES (?, ?)",
       [data.email, timestamp]
     );
     return new Response(
       JSON.stringify({
-        message: "Email registered successfully",
+        message: "Correo registrado",
       })
     );
   } catch (error) {
