@@ -1,0 +1,103 @@
+---
+/**
+ * Card Component - Refactorizado con arquitectura limpia
+ * Separación de responsabilidades: Logic, Types, Styles
+ */
+
+import type { CardProps } from './Card.types';
+import { CardController } from './Card.logic';
+
+export type { CardProps };
+
+const {
+  variant = 'default',
+  size = 'md',
+  class: className = '',
+  hoverable = false,
+  clickable = false,
+  style = '',
+  loading = false,
+  animate = false
+} = Astro.props as CardProps;
+
+// Validar props
+CardController.validateProps(Astro.props);
+
+// Generar clases y atributos
+const cardClasses = CardController.generateClasses(Astro.props);
+const cardAttributes = CardController.getCardAttributes(Astro.props);
+---
+
+<div 
+  class={cardClasses}
+  style={style}
+  data-component="card"
+  data-variant={variant}
+  role={clickable ? "button" : undefined}
+  tabindex={clickable ? 0 : undefined}
+  aria-disabled={loading ? "true" : undefined}
+>
+  <slot />
+  
+  <!-- Loading overlay si está en loading -->
+  {loading && (
+    <div class="card__loading-overlay" aria-hidden="true">
+      <div class="card__loading-spinner"></div>
+    </div>
+  )}
+</div>
+
+<!-- Importar estilos del componente -->
+<style>
+  @import './Card.styles.css';
+</style>
+
+<!-- Script para interactividad -->
+<script>
+  import { createCardHandler, CardLoadingManager } from './Card.logic';
+  
+  // Declare global interface for TypeScript
+  declare global {
+    interface Window {
+      CardLoadingManager: typeof CardLoadingManager;
+    }
+  }
+  
+  // Initialize card interactions
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('[data-component="card"]');
+    
+    cards.forEach((card) => {
+      if (card instanceof HTMLElement) {
+        createCardHandler(card);
+      }
+    });
+  });
+  
+  // Handle dynamic cards
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          const cards = node.matches('[data-component="card"]') 
+            ? [node] 
+            : Array.from(node.querySelectorAll('[data-component="card"]'));
+            
+          cards.forEach((card) => {
+            if (card instanceof HTMLElement) {
+              createCardHandler(card);
+            }
+          });
+        }
+      });
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Expose CardLoadingManager globally for external use
+  window.CardLoadingManager = CardLoadingManager;
+</script>

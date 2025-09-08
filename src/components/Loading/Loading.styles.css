@@ -1,0 +1,511 @@
+/**
+ * Loading Component Styles
+ * Estilos CSS para el componente Loading
+ */
+
+/* ===== LOADER BASE STYLES ===== */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  position: relative;
+}
+
+/* ===== FULLSCREEN AND OVERLAY VARIANTS ===== */
+.loader--fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-modal);
+  background: var(--primary-bg);
+}
+
+.loader--overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-overlay);
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+/* ===== SIZE VARIANTS ===== */
+.loader--sm .loader__spinner,
+.loader--sm .loader__dots,
+.loader--sm .loader__pulse,
+.loader--sm .loader__wave {
+  width: 24px;
+  height: 24px;
+}
+
+.loader--sm .loader__text {
+  font-size: var(--font-size-xs);
+}
+
+.loader--md .loader__spinner,
+.loader--md .loader__dots,
+.loader--md .loader__pulse,
+.loader--md .loader__wave {
+  width: 40px;
+  height: 40px;
+}
+
+.loader--md .loader__text {
+  font-size: var(--font-size-sm);
+}
+
+.loader--lg .loader__spinner,
+.loader--lg .loader__dots,
+.loader--lg .loader__pulse,
+.loader--lg .loader__wave {
+  width: 56px;
+  height: 56px;
+}
+
+.loader--lg .loader__text {
+  font-size: var(--font-size-base);
+}
+
+.loader--xl .loader__spinner,
+.loader--xl .loader__dots,
+.loader--xl .loader__pulse,
+.loader--xl .loader__wave {
+  width: 72px;
+  height: 72px;
+}
+
+.loader--xl .loader__text {
+  font-size: var(--font-size-lg);
+}
+
+/* ===== SPINNER VARIANTS ===== */
+
+/* Primary Spinner */
+.loader--primary .loader__spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.loader--primary .loader__circle {
+  width: 100%;
+  height: 100%;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top: 3px solid var(--accent-blue);
+  border-radius: 50%;
+  animation: loader-spin 1.2s linear infinite;
+}
+
+/* Secondary Spinner */
+.loader--secondary .loader__spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.loader--secondary .loader__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  animation: loader-spin 1.5s ease-in-out infinite;
+}
+
+.loader--secondary .loader__ring:first-child {
+  border-top-color: var(--accent-blue);
+  border-right-color: var(--accent-purple);
+}
+
+.loader--secondary .loader__ring:last-child {
+  border-bottom-color: var(--accent-pink);
+  border-left-color: var(--accent-teal);
+  animation-direction: reverse;
+  animation-duration: 1.8s;
+}
+
+/* Dots Loader */
+.loader--dots .loader__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.loader--dots .loader__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-blue);
+  border-radius: 50%;
+  animation: loader-dot-bounce 1.4s ease-in-out infinite both;
+}
+
+.loader--dots .loader__dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loader--dots .loader__dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.loader--dots .loader__dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+/* Pulse Loader */
+.loader--pulse .loader__pulse {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader--pulse .loader__pulse-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--accent-blue);
+  border-radius: 50%;
+  opacity: 1;
+  animation: loader-pulse-scale 2s ease-in-out infinite;
+}
+
+.loader--pulse .loader__pulse-ring:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader--pulse .loader__pulse-ring:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.loader--pulse .loader__pulse-ring:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* Wave Loader */
+.loader--wave .loader__wave {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.loader--wave .loader__wave-bar {
+  width: 4px;
+  height: 100%;
+  background: var(--gradient-button);
+  border-radius: var(--radius-sm);
+  animation: loader-wave-scale 1.6s ease-in-out infinite;
+}
+
+.loader--wave .loader__wave-bar:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader--wave .loader__wave-bar:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loader--wave .loader__wave-bar:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.loader--wave .loader__wave-bar:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.loader--wave .loader__wave-bar:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+/* ===== TEXT STYLES ===== */
+.loader__text {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  margin: 0;
+  user-select: none;
+}
+
+/* ===== PROGRESS BAR ===== */
+.loader__progress {
+  width: 200px;
+  height: 4px;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.loader__progress-bar {
+  height: 100%;
+  background: var(--gradient-button);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease-out;
+  position: relative;
+}
+
+.loader__progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: progress-shine 2s ease-in-out infinite;
+}
+
+.loader__progress-text {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-2);
+  user-select: none;
+}
+
+/* ===== ANIMATIONS ===== */
+
+/* Spin Animation */
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dot Bounce Animation */
+@keyframes loader-dot-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Pulse Scale Animation */
+@keyframes loader-pulse-scale {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* Wave Scale Animation */
+@keyframes loader-wave-scale {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+/* Progress Shine Animation */
+@keyframes progress-shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200px);
+  }
+}
+
+/* Entrance/Exit Animations */
+.loader--animate-in {
+  animation: loader-fade-in 0.3s ease-out;
+}
+
+.loader--animate-out {
+  animation: loader-fade-out 0.3s ease-in;
+}
+
+@keyframes loader-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes loader-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 480px) {
+  .loader--fullscreen,
+  .loader--overlay {
+    padding: var(--spacing-4);
+  }
+
+  .loader__progress {
+    width: 150px;
+  }
+
+  .loader--lg .loader__spinner,
+  .loader--lg .loader__dots,
+  .loader--lg .loader__pulse,
+  .loader--lg .loader__wave {
+    width: 48px;
+    height: 48px;
+  }
+
+  .loader--xl .loader__spinner,
+  .loader--xl .loader__dots,
+  .loader--xl .loader__pulse,
+  .loader--xl .loader__wave {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .loader__circle,
+  .loader__ring,
+  .loader__dot,
+  .loader__pulse-ring,
+  .loader__wave-bar,
+  .loader__progress-bar::after {
+    animation-duration: 3s;
+    animation-timing-function: ease-in-out;
+  }
+
+  .loader--dots .loader__dot {
+    animation: loader-fade 2s ease-in-out infinite;
+  }
+
+  .loader--wave .loader__wave-bar {
+    animation: loader-fade 2s ease-in-out infinite;
+  }
+
+  @keyframes loader-fade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .loader__circle,
+  .loader__ring {
+    border-width: 4px;
+    border-color: currentColor;
+  }
+
+  .loader__dot,
+  .loader__pulse-ring,
+  .loader__wave-bar {
+    background: currentColor;
+    border: 1px solid currentColor;
+  }
+
+  .loader__progress {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid currentColor;
+  }
+
+  .loader__progress-bar {
+    background: currentColor;
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .loader {
+    display: none !important;
+  }
+}
+
+/* ===== LOADING STATES FOR COMPONENTS ===== */
+.loading-container {
+  position: relative;
+  min-height: 100px;
+}
+
+.loading-container--active .loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.loading-container--active > *:not(.loader) {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ===== SKELETON LOADING ===== */
+.loader--skeleton .loader__skeleton-item {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 2s infinite;
+  border-radius: var(--radius-md);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loader__skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.loader__skeleton-text--short {
+  width: 60%;
+}
+
+.loader__skeleton-text--medium {
+  width: 80%;
+}
+
+.loader__skeleton-text--long {
+  width: 100%;
+}

@@ -1,0 +1,17 @@
+---
+/**
+ * Button Component - Wrapper Principal
+ * Importa el componente desde la carpeta refactorizada
+ */
+
+// Import the new Button structure
+import ButtonComponent from './Button/Button.astro';
+export type { ButtonProps } from './Button/Button.types';
+
+// Pass through all props to the new component
+const props = Astro.props;
+---
+
+<ButtonComponent {...props}>
+  <slot />
+</ButtonComponent>

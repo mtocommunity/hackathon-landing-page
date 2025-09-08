@@ -1,0 +1,210 @@
+---
+/**
+ * ChallengeCard Component - Refactorizado con arquitectura limpia
+ * Separación de responsabilidades: Logic, Types, Styles
+ */
+
+import type { ChallengeCardProps } from './ChallengeCard.types';
+import { ChallengeCardController } from './ChallengeCard.logic';
+
+export type { ChallengeCardProps };
+
+const { 
+  challenge, 
+  index = 0, 
+  variant = 'default',
+  showExamples = true,
+  showPrizes = true,
+  showTags = true,
+  clickable = false,
+  class: className = ''
+} = Astro.props as ChallengeCardProps;
+
+// Validar y procesar challenge
+ChallengeCardController.validateChallenge(challenge);
+const processedChallenge = ChallengeCardController.processChallenge(challenge);
+
+// Generar clases y atributos
+const cardClasses = ChallengeCardController.generateClasses(Astro.props);
+const animationStyle = ChallengeCardController.generateAnimationStyle(index);
+const cardAttributes = ChallengeCardController.generateAttributes(Astro.props);
+
+// Generar contenido HTML
+const categoryBadge = ChallengeCardController.generateCategoryBadge(processedChallenge.category);
+const requirementsList = ChallengeCardController.generateRequirementsList(processedChallenge.requirements);
+const examplesContent = showExamples ? ChallengeCardController.generateExamples(processedChallenge.examples) : '';
+const tagsContent = showTags && processedChallenge.tags ? ChallengeCardController.generateTechTags(processedChallenge.tags) : '';
+
+// Calcular color del icono
+const iconColor = ChallengeCardController.getCategoryColor(processedChallenge.category);
+---
+
+<article 
+  class={cardClasses} 
+  style={animationStyle}
+  {...cardAttributes}
+>
+  <!-- Card Header -->
+  <header class="challenge__header">
+    <div 
+      class="challenge__icon" 
+      data-icon={processedChallenge.icon}
+      style={`color: ${iconColor}`}
+    >
+      {processedChallenge.icon}
+    </div>
+    <div class="challenge__meta">
+      <Fragment set:html={categoryBadge} />
+      <h3 class="challenge__title">
+        {processedChallenge.title}
+      </h3>
+    </div>
+  </header>
+
+  <!-- Challenge Content -->
+  <div class="challenge__content">
+    <p class="challenge__description">
+      {processedChallenge.description}
+    </p>
+
+    <!-- Challenge Details Grid -->
+    <div class="challenge__details">
+      <!-- Requirements Section -->
+      <section class="challenge__requirements">
+        <h4>Requisitos Técnicos</h4>
+        <Fragment set:html={requirementsList} />
+      </section>
+
+      <!-- Prizes Section -->
+      {showPrizes && (
+        <section class="challenge__prizes">
+          <h4>Premios</h4>
+          <div class="prizes">
+            <div class="prize prize--first" title="Primer Lugar">🥇</div>
+            <div class="prize prize--second" title="Segundo Lugar">🥈</div>
+            <div class="prize prize--third" title="Tercer Lugar">🥉</div>
+          </div>
+          <div class="total-prize">
+            Premio Total: $5,000
+          </div>
+        </section>
+      )}
+    </div>
+
+    <!-- Examples Section -->
+    {showExamples && examplesContent && (
+      <Fragment set:html={examplesContent} />
+    )}
+
+    <!-- Tags Section -->
+    {showTags && tagsContent && (
+      <Fragment set:html={tagsContent} />
+    )}
+  </div>
+
+  <!-- Card Actions -->
+  <footer class="challenge__actions">
+    <button 
+      class="btn btn--primary" 
+      data-action="select"
+      data-challenge-id={processedChallenge.id}
+    >
+      Elegir Este Reto
+    </button>
+    <button 
+      class="btn btn--outline" 
+      data-action="more-info"
+      data-challenge-id={processedChallenge.id}
+    >
+      Más Información
+    </button>
+  </footer>
+</article>
+
+<!-- Importar estilos del componente -->
+<style src="./ChallengeCard.styles.css"></style>
+
+<!-- Script para interactividad -->
+<script>
+  import { createChallengeCardHandler, ChallengeCardFilter } from './ChallengeCard.logic';
+  
+  // Initialize challenge card interactions
+  document.addEventListener('DOMContentLoaded', () => {
+    const challengeCards = document.querySelectorAll('[data-component="challenge-card"]');
+    
+    challengeCards.forEach((card) => {
+      if (card instanceof HTMLElement) {
+        // Setup card interactions with default actions
+        const cleanup = createChallengeCardHandler(card, {
+          onSelect: (challengeId) => {
+            console.log('Selected challenge:', challengeId);
+            
+            // Emit global event
+            window.dispatchEvent(new CustomEvent('challenge:selected', {
+              detail: { challengeId }
+            }));
+          },
+          
+          onMoreInfo: (challengeId) => {
+            console.log('More info for challenge:', challengeId);
+            
+            // Emit global event
+            window.dispatchEvent(new CustomEvent('challenge:moreinfo', {
+              detail: { challengeId }
+            }));
+          },
+          
+          onClick: (challengeId) => {
+            console.log('Clicked challenge:', challengeId);
+            
+            // Emit global event
+            window.dispatchEvent(new CustomEvent('challenge:clicked', {
+              detail: { challengeId }
+            }));
+          }
+        });
+        
+        // Store cleanup function for later use
+        (card as any).__challengeCardCleanup = cleanup;
+      }
+    });
+  });
+  
+  // Handle dynamic challenge cards
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          const cards = node.matches('[data-component="challenge-card"]') 
+            ? [node] 
+            : Array.from(node.querySelectorAll('[data-component="challenge-card"]'));
+            
+          cards.forEach((card) => {
+            if (card instanceof HTMLElement) {
+              createChallengeCardHandler(card);
+            }
+          });
+        }
+      });
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    const cards = document.querySelectorAll('[data-component="challenge-card"]');
+    cards.forEach((card) => {
+      const cleanup = (card as any).__challengeCardCleanup;
+      if (cleanup) {
+        cleanup();
+      }
+    });
+  });
+  
+  // Expose utilities globally for external use
+  window.ChallengeCardFilter = ChallengeCardFilter;
+</script>

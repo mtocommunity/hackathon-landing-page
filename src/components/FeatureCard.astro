@@ -1,0 +1,17 @@
+---
+/**
+ * FeatureCard Component - Wrapper Principal
+ * Importa el componente desde la carpeta refactorizada
+ */
+
+// Import the new FeatureCard structure
+import FeatureCardComponent from './FeatureCard/FeatureCard.astro';
+export type { FeatureCardProps } from './FeatureCard/FeatureCard.types';
+
+// Pass through all props to the new component
+const props = Astro.props;
+---
+
+<FeatureCardComponent {...props}>
+  <slot />
+</FeatureCardComponent>

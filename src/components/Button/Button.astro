@@ -1,0 +1,116 @@
+---
+/**
+ * Button Component - Refactorizado con arquitectura limpia
+ * Separación de responsabilidades: Logic, Types, Styles
+ */
+
+import type { ButtonProps } from './Button.types';
+import { ButtonController } from './Button.logic';
+
+export type { ButtonProps };
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  loading = false,
+  fullWidth = false,
+  class: className = '',
+  icon,
+  iconPosition = 'right'
+} = Astro.props as ButtonProps;
+
+// Validar props
+ButtonController.validateProps(Astro.props);
+
+// Generar clases
+const buttonClasses = ButtonController.generateClasses(Astro.props);
+
+// Renderizar icono si existe
+const leftIcon = icon && iconPosition === 'left' ? 
+  ButtonController.renderIcon(icon, 'left') : '';
+const rightIcon = icon && iconPosition === 'right' ? 
+  ButtonController.renderIcon(icon, 'right') : '';
+
+// Props para el elemento
+const commonProps = {
+  class: buttonClasses,
+  'data-component': 'button'
+};
+---
+
+{href ? (
+  <a 
+    href={href}
+    role="button"
+    aria-disabled={disabled ? 'true' : undefined}
+    tabindex={disabled ? -1 : undefined}
+    {...commonProps}
+  >
+    <Fragment set:html={leftIcon} />
+    <span class="btn__text">
+      <slot />
+    </span>
+    <Fragment set:html={rightIcon} />
+    {loading && <span class="btn__spinner" aria-hidden="true"></span>}
+  </a>
+) : (
+  <button 
+    type={type}
+    disabled={disabled}
+    aria-disabled={disabled ? 'true' : undefined}
+    {...commonProps}
+  >
+    <Fragment set:html={leftIcon} />
+    <span class="btn__text">
+      <slot />
+    </span>
+    <Fragment set:html={rightIcon} />
+    {loading && <span class="btn__spinner" aria-hidden="true"></span>}
+  </button>
+)}
+
+<style>
+  @import './Button.styles.css';
+</style>
+
+<script>
+  import { createButtonHandler } from './Button.logic';
+  
+  // Initialize button interactions
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('[data-component="button"]');
+    
+    buttons.forEach((button) => {
+      if (button instanceof HTMLElement) {
+        createButtonHandler(button);
+      }
+    });
+  });
+  
+  // Handle dynamic buttons
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          const buttons = node.matches('[data-component="button"]') 
+            ? [node] 
+            : Array.from(node.querySelectorAll('[data-component="button"]'));
+            
+          buttons.forEach((button) => {
+            if (button instanceof HTMLElement) {
+              createButtonHandler(button);
+            }
+          });
+        }
+      });
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+</script>

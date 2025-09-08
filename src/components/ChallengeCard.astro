@@ -1,0 +1,17 @@
+---
+/**
+ * ChallengeCard Component - Backward compatibility wrapper
+ * Redirige al nuevo ChallengeCard component refactorizado
+ */
+
+// Import the new ChallengeCard structure
+import ChallengeCardComponent from './ChallengeCard/ChallengeCard.astro';
+export type { ChallengeCardProps } from './ChallengeCard/ChallengeCard.types';
+
+// Pass through all props to the new component
+const props = Astro.props;
+---
+
+<ChallengeCardComponent {...props}>
+  <slot />
+</ChallengeCardComponent>

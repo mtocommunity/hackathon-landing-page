@@ -1,0 +1,95 @@
+---
+/**
+ * Loading Component - Refactorizado con arquitectura limpia
+ * Separación de responsabilidades: Logic, Types, Styles
+ */
+
+import type { LoadingProps } from './Loading.types';
+import { LoadingController } from './Loading.logic';
+
+export type { LoadingProps };
+
+const {
+  size = 'md',
+  variant = 'primary',
+  text = 'Cargando...',
+  class: className = '',
+  fullscreen = false,
+  overlay = false,
+  progress
+} = Astro.props as LoadingProps;
+
+// Validar props
+LoadingController.validateProps(Astro.props);
+
+// Generar clases y atributos
+const loaderClasses = LoadingController.generateClasses(Astro.props);
+const attributes = LoadingController.generateAttributes(Astro.props);
+const spinnerContent = LoadingController.generateSpinnerContent(variant);
+---
+
+<div class={loaderClasses} {...attributes}>
+  <!-- Spinner content -->
+  <Fragment set:html={spinnerContent} />
+  
+  <!-- Text content -->
+  {text && <p class="loader__text">{text}</p>}
+  
+  <!-- Progress bar (if progress is provided) -->
+  {progress !== undefined && (
+    <div class="loader__progress">
+      <div class="loader__progress-bar" style={`width: ${progress}%`}></div>
+    </div>
+    <span class="loader__progress-text">{Math.round(progress)}%</span>
+  )}
+  
+  <!-- Slot for custom content -->
+  <slot />
+</div>
+
+<!-- Importar estilos del componente -->
+<style src="./Loading.styles.css"></style>
+
+<!-- Script para funcionalidad avanzada -->
+<script>
+  import { LoadingManager, createLoadingHandler, ProgressiveLoader } from './Loading.logic';
+  
+  // Initialize loading handlers
+  document.addEventListener('DOMContentLoaded', () => {
+    const loaders = document.querySelectorAll('[data-component="loading"]');
+    
+    loaders.forEach((loader) => {
+      if (loader instanceof HTMLElement) {
+        createLoadingHandler(loader);
+      }
+    });
+  });
+  
+  // Handle dynamic loaders
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) {
+          const loaders = node.matches('[data-component="loading"]') 
+            ? [node] 
+            : Array.from(node.querySelectorAll('[data-component="loading"]'));
+            
+          loaders.forEach((loader) => {
+            if (loader instanceof HTMLElement) {
+              createLoadingHandler(loader);
+            }
+          });
+        }
+      });
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+  
+  // Expose utilities globally for external use
+  window.LoadingManager = LoadingManager;
+  window.ProgressiveLoader = ProgressiveLoader;
+</script>

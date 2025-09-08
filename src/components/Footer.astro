@@ -1,0 +1,107 @@
+---
+const socialLinks = [
+  { name: 'Instagram', href: '#', icon: 'instagram' },
+  { name: 'LinkedIn', href: '#', icon: 'linkedin' },
+  { name: 'TikTok', href: '#', icon: 'tiktok' },
+  { name: 'YouTube', href: '#', icon: 'youtube' },
+  { name: 'GitHub', href: '#', icon: 'github' },
+  { name: 'Twitch', href: '#', icon: 'twitch' },
+  { name: 'WhatsApp', href: '#', icon: 'whatsapp' }
+];
+
+const quickLinks = [
+  { name: 'Inicio', href: '/' },
+  { name: 'Retos', href: '/retos' },
+  { name: 'Jurado', href: '/jurado' },
+  { name: 'Organizadores', href: '/staff' },
+  { name: 'Bases', href: '/bases' },
+  { name: 'Inscripción', href: '/inscripcion' }
+];
+---
+
+<!-- Importar estilos del footer -->
+<link rel="stylesheet" href="/src/styles/components/footer.css">
+
+<footer class="footer">
+  <div class="container">
+    <!-- Sección Principal del Footer -->
+    <div class="footer__main">
+      <div class="footer__content">
+        <!-- Logo y descripción -->
+        <div class="footer__brand">
+          <div class="footer__logo">
+            <div class="logo-icon">
+              <img src="/images/logo.png" alt="MTO Hackathon 2025 Logo" class="footer__logo-image">
+            </div>
+            <span class="logo-text">MANY TO ONE</span>
+          </div>
+          <p class="footer__description">
+            Construyendo un futuro tecnológico desde Perú para el mundo. 
+            Únete al hackathon más innovador del año.
+          </p>
+        </div>
+
+        <!-- Enlaces rápidos -->
+        <div class="footer__section">
+          <h3 class="footer__title">Enlaces Rápidos</h3>
+          <ul class="footer__list">
+            {quickLinks.map((link) => (
+              <li class="footer__list-item">
+                <a href={link.href} class="footer__link">
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="footer__section">
+          <h3 class="footer__title">Contacto</h3>
+          <div class="footer__contact-info">
+            <div class="contact-item">
+              <span class="contact-icon">📧</span>
+              <span class="contact-text">hackathon@mto.pe</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📱</span>
+              <span class="contact-text">+51 987654321</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-icon">📍</span>
+              <span class="contact-text">Chiclayo, Perú</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="footer__section">
+          <h3 class="footer__title">Síguenos</h3>
+          <div class="social-links">
+            {socialLinks.map((social) => (
+              <a href={social.href} class="social-link" aria-label={social.name}>
+                <i class={`icon-${social.icon}`}></i>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Inferior -->
+    <div class="footer__bottom">
+      <div class="footer__bottom-content">
+        <div class="footer__copyright">
+          <p>&copy; 2025 Many To One. Todos los derechos reservados.</p>
+        </div>
+        <div class="footer__legal">
+          <a href="/privacy" class="footer__link footer__link--small">Privacidad</a>
+          <span class="footer__separator">|</span>
+          <a href="/terms" class="footer__link footer__link--small">Términos</a>
+          <span class="footer__separator">|</span>
+          <a href="/cookies" class="footer__link footer__link--small">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,697 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+
+const jurors = [
+  {
+    id: 1,
+    name: "Dr. Ana María González",
+    title: "Chief Technology Officer",
+    company: "TechCorp Latam",
+    expertise: ["Inteligencia Artificial", "Machine Learning", "Innovación Tecnológica"],
+    bio: "Doctora en Ciencias de la Computación con más de 15 años de experiencia en desarrollo de soluciones de IA. Ha liderado equipos de innovación en empresas Fortune 500 y es autora de múltiples publicaciones científicas.",
+    image: "/images/jurado/ana-gonzalez.jpg",
+    linkedin: "#",
+    twitter: "#",
+    achievements: [
+      "Fundadora de 3 startups exitosas",
+      "Conferencista internacional en 50+ eventos",
+      "Mentora de más de 100 emprendedores",
+      "Premio Innovadora del Año 2023"
+    ]
+  },
+  {
+    id: 2,
+    name: "Ing. Carlos Mendoza",
+    title: "Senior Software Architect",
+    company: "Amazon Web Services",
+    expertise: ["Cloud Computing", "Arquitectura de Software", "DevOps"],
+    bio: "Ingeniero de Software con especialización en arquitecturas cloud y sistemas distribuidos. Ha trabajado en el diseño de sistemas que manejan millones de usuarios diarios.",
+    image: "/images/jurado/carlos-mendoza.jpg",
+    linkedin: "#",
+    github: "#",
+    achievements: [
+      "Arquitecto principal en 5 productos globales",
+      "Speaker en AWS re:Invent",
+      "Certificado en todas las especialidades AWS",
+      "Líder de comunidades tech en Perú"
+    ]
+  },
+  {
+    id: 3,
+    name: "María José Herrera",
+    title: "UX Research Director",
+    company: "Meta (Facebook)",
+    expertise: ["User Experience", "Design Thinking", "Investigación de Usuarios"],
+    bio: "Diseñadora UX con enfoque en investigación y experiencia de usuario. Ha liderado proyectos de productos usados por más de mil millones de personas globalmente.",
+    image: "/images/jurado/maria-herrera.jpg",
+    linkedin: "#",
+    behance: "#",
+    achievements: [
+      "Directora de UX en productos globales",
+      "Creadora de metodologías de investigación",
+      "Autora del libro 'Design for Inclusion'",
+      "Ganadora Design Impact Award 2024"
+    ]
+  },
+  {
+    id: 4,
+    name: "Dr. Roberto Silva",
+    title: "Venture Partner",
+    company: "Andreessen Horowitz",
+    expertise: ["Venture Capital", "Startups", "Estrategia de Negocios"],
+    bio: "Inversionista y emprendedor serial con experiencia en identificación y desarrollo de startups tecnológicas. Ha participado en inversiones por más de $500M en Latinoamérica.",
+    image: "/images/jurado/roberto-silva.jpg",
+    linkedin: "#",
+    twitter: "#",
+    achievements: [
+      "Partner en fondo de $2B",
+      "Ex-CEO de 2 unicornios",
+      "Inversionista en 40+ startups",
+      "Forbes 40 Under 40"
+    ]
+  },
+  {
+    id: 5,
+    name: "Dra. Patricia Ramos",
+    title: "Head of Innovation",
+    company: "Banco de Crédito del Perú",
+    expertise: ["Fintech", "Blockchain", "Transformación Digital"],
+    bio: "Líder en transformación digital del sector financiero con especialización en tecnologías emergentes y su aplicación en servicios bancarios innovadores.",
+    image: "/images/jurado/patricia-ramos.jpg",
+    linkedin: "#",
+    medium: "#",
+    achievements: [
+      "Lideró la digitalización del BCP",
+      "Pionera en blockchain en Perú",
+      "Especialista en regulación fintech",
+      "Woman in Tech Award 2023"
+    ]
+  },
+  {
+    id: 6,
+    name: "Ing. José Valdez",
+    title: "Sustainability Tech Lead",
+    company: "Tesla",
+    expertise: ["Tecnología Sostenible", "IoT", "Energías Renovables"],
+    bio: "Ingeniero especializado en tecnologías sostenibles y sistemas de energía renovable. Ha liderado proyectos de electrificación y sostenibilidad a nivel global.",
+    image: "/images/jurado/jose-valdez.jpg",
+    linkedin: "#",
+    github: "#",
+    achievements: [
+      "Lead Engineer en proyectos Tesla",
+      "Experto en sistemas de baterías",
+      "Autor de 20+ patentes",
+      "Green Tech Innovator 2024"
+    ]
+  }
+];
+
+const evaluationCriteria = [
+  {
+    title: "Innovación",
+    percentage: 30,
+    description: "Originalidad de la idea, uso creativo de tecnología y potencial disruptivo de la solución.",
+    icon: "💡"
+  },
+  {
+    title: "Impacto Social",
+    percentage: 25,
+    description: "Capacidad de la solución para generar un impacto positivo y medible en la sociedad.",
+    icon: "🌍"
+  },
+  {
+    title: "Viabilidad Técnica",
+    percentage: 25,
+    description: "Factibilidad técnica, calidad del código, arquitectura y escalabilidad de la solución.",
+    icon: "⚙️"
+  },
+  {
+    title: "Presentación",
+    percentage: 20,
+    description: "Claridad en la comunicación, demo efectivo y capacidad de transmitir la propuesta de valor.",
+    icon: "🎯"
+  }
+];
+---
+
+<Layout title="Jurado - MTO Hackathon 2024">
+  <Header currentPath="/jurado" />
+  
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__content text-center">
+          <h1 class="hero__title">
+            Nuestro <span class="text-gradient">Jurado</span>
+          </h1>
+          <p class="hero__description">
+            Expertos de clase mundial en tecnología, innovación y emprendimiento 
+            que evaluarán las mejores soluciones del hackathon.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jurors Section -->
+    <section class="jurors">
+      <div class="container">
+        <div class="jurors__grid">
+          {jurors.map((juror) => (
+            <Card variant="elevated" hoverable class="juror-card">
+              <div class="juror__header">
+                <div class="juror__avatar">
+                  <img src={juror.image} alt={juror.name} onerror="this.src='/images/placeholder-avatar.jpg'" />
+                </div>
+                <div class="juror__info">
+                  <h3 class="juror__name">{juror.name}</h3>
+                  <p class="juror__title">{juror.title}</p>
+                  <p class="juror__company">{juror.company}</p>
+                </div>
+              </div>
+              
+              <div class="juror__expertise">
+                <h4>Especialidades:</h4>
+                <div class="expertise-tags">
+                  {juror.expertise.map((skill) => (
+                    <span class="expertise-tag">{skill}</span>
+                  ))}
+                </div>
+              </div>
+              
+              <p class="juror__bio">{juror.bio}</p>
+              
+              <div class="juror__achievements">
+                <h4>Logros Destacados:</h4>
+                <ul>
+                  {juror.achievements.map((achievement) => (
+                    <li>{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div class="juror__social">
+                {juror.linkedin && (
+                  <a href={juror.linkedin} class="social-link" aria-label="LinkedIn">
+                    <i class="icon-linkedin"></i>
+                  </a>
+                )}
+                {juror.twitter && (
+                  <a href={juror.twitter} class="social-link" aria-label="Twitter">
+                    <i class="icon-twitter"></i>
+                  </a>
+                )}
+                {juror.github && (
+                  <a href={juror.github} class="social-link" aria-label="GitHub">
+                    <i class="icon-github"></i>
+                  </a>
+                )}
+                {juror.behance && (
+                  <a href={juror.behance} class="social-link" aria-label="Behance">
+                    <i class="icon-behance"></i>
+                  </a>
+                )}
+                {juror.medium && (
+                  <a href={juror.medium} class="social-link" aria-label="Medium">
+                    <i class="icon-medium"></i>
+                  </a>
+                )}
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Evaluation Criteria Section -->
+    <section class="evaluation">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Criterios de Evaluación</h2>
+          <p class="section-description">
+            Conoce cómo nuestro jurado evaluará tu proyecto y qué aspectos son más importantes
+          </p>
+        </div>
+        
+        <div class="criteria-grid">
+          {evaluationCriteria.map((criterion) => (
+            <Card variant="elevated" hoverable class="criterion-card">
+              <div class="criterion__header">
+                <div class="criterion__icon">{criterion.icon}</div>
+                <div class="criterion__info">
+                  <h3 class="criterion__title">{criterion.title}</h3>
+                  <div class="criterion__percentage">{criterion.percentage}%</div>
+                </div>
+              </div>
+              <p class="criterion__description">{criterion.description}</p>
+              <div class="criterion__bar">
+                <div class="criterion__progress" style={`width: ${criterion.percentage}%`}></div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+      <div class="container">
+        <div class="text-center">
+          <h2 class="section-title">Proceso de Evaluación</h2>
+          <p class="section-description">
+            Un proceso justo y transparente para evaluar todas las propuestas
+          </p>
+        </div>
+        
+        <div class="process__steps">
+          <Card variant="elevated" size="lg">
+            <div class="steps-grid">
+              <div class="step">
+                <div class="step__number">1</div>
+                <h4 class="step__title">Entrega de Proyectos</h4>
+                <p class="step__description">Los equipos entregan su código, demo y documentación antes de las 14:00 del domingo.</p>
+              </div>
+              
+              <div class="step">
+                <div class="step__number">2</div>
+                <h4 class="step__title">Revisión Técnica</h4>
+                <p class="step__description">Evaluación del código, arquitectura y viabilidad técnica por parte del jurado especializado.</p>
+              </div>
+              
+              <div class="step">
+                <div class="step__number">3</div>
+                <h4 class="step__title">Presentaciones</h4>
+                <p class="step__description">Cada equipo presenta su solución en 5 minutos seguido de 3 minutos de preguntas del jurado.</p>
+              </div>
+              
+              <div class="step">
+                <div class="step__number">4</div>
+                <h4 class="step__title">Deliberación</h4>
+                <p class="step__description">El jurado delibera en privado utilizando los criterios establecidos para seleccionar a los ganadores.</p>
+              </div>
+              
+              <div class="step">
+                <div class="step__number">5</div>
+                <h4 class="step__title">Premiación</h4>
+                <p class="step__description">Anuncio de ganadores y entrega de premios en ceremonia pública con feedback del jurado.</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <Card variant="elevated" size="lg" class="text-center">
+          <h2 class="cta__title">Impresiona al Jurado</h2>
+          <p class="cta__description">
+            Desarrolla una solución innovadora que capture la atención de estos expertos internacionales
+          </p>
+          <div class="cta__actions">
+            <Button variant="primary" size="lg" href="/inscripcion">
+              Participar Ahora
+            </Button>
+            <Button variant="ghost" size="lg" href="/retos">
+              Ver los Retos
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .hero {
+    padding: calc(70px + var(--spacing-3xl)) 0 var(--spacing-3xl);
+  }
+
+  .hero__title {
+    font-size: var(--font-size-5xl);
+    font-weight: 900;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .hero__description {
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .jurors {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .jurors__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .juror-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .juror__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .juror__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: var(--shadow-button);
+    flex-shrink: 0;
+  }
+
+  .juror__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--gradient-card);
+  }
+
+  .juror__info {
+    flex: 1;
+  }
+
+  .juror__name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .juror__title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--accent-teal);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .juror__company {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+  }
+
+  .juror__expertise {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .juror__expertise h4 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-base);
+  }
+
+  .expertise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .expertise-tag {
+    background: var(--gradient-button);
+    color: var(--text-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+  }
+
+  .juror__bio {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .juror__achievements {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .juror__achievements h4 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-base);
+  }
+
+  .juror__achievements ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .juror__achievements li {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) 0;
+    position: relative;
+    padding-left: var(--spacing-md);
+  }
+
+  .juror__achievements li::before {
+    content: "🏆";
+    position: absolute;
+    left: 0;
+    font-size: var(--font-size-xs);
+  }
+
+  .juror__social {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+    background: var(--gradient-card);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-button);
+  }
+
+  .social-link:hover {
+    color: var(--accent-teal);
+    transform: translateY(-2px);
+  }
+
+  .evaluation, .process, .cta {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .section-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-lg);
+    background: var(--gradient-button);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-3xl);
+  }
+
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .criterion-card {
+    position: relative;
+  }
+
+  .criterion__header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .criterion__icon {
+    font-size: var(--font-size-3xl);
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-card);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-button);
+  }
+
+  .criterion__info {
+    flex: 1;
+  }
+
+  .criterion__title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .criterion__percentage {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--accent-teal);
+  }
+
+  .criterion__description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .criterion__bar {
+    height: 8px;
+    background: var(--primary-bg);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .criterion__progress {
+    height: 100%;
+    background: var(--gradient-button);
+    border-radius: var(--radius-sm);
+    transition: width 1s ease-out;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+  }
+
+  .step {
+    text-align: center;
+    position: relative;
+  }
+
+  .step__number {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-button);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 auto var(--spacing-lg);
+    box-shadow: var(--shadow-button);
+  }
+
+  .step__title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .step__description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cta__title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin-bottom: var(--spacing-lg);
+    background: var(--gradient-button);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cta__description {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .cta__actions {
+    display: flex;
+    gap: var(--spacing-lg);
+    justify-content: center;
+  }
+
+  /* Iconos de redes sociales */
+  .icon-linkedin::before { content: "💼"; }
+  .icon-twitter::before { content: "🐦"; }
+  .icon-github::before { content: "🐙"; }
+  .icon-behance::before { content: "🎨"; }
+  .icon-medium::before { content: "📝"; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .jurors__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .juror__header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .juror__avatar {
+      margin: 0 auto;
+    }
+
+    .criteria-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .jurors__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .criterion__header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .criterion__icon {
+      margin: 0 auto;
+    }
+  }
+</style>
