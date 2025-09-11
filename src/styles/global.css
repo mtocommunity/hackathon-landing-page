@@ -11,7 +11,7 @@
 /* @import url('./pages/inscripcion.css'); - File not found, commented out */
 
 /* Sistema de Diseño Neomórfico - Modo Claro */
-
+@import url(./font.css);
 :root {
   /* Nueva Paleta de Colores - Neomórfico Claro */
   --primary-bg: #f8fafc;
@@ -129,9 +129,9 @@
   --error-color: var(--magenta-dark);     /* Magenta oscuro para errores */
   --info-color: var(--cyan-bright);       /* Cian brillante para información */
   
-  /* Tipografía Moderna - Nunito Sans y JetBrains Mono */
-  --font-family-primary: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-display: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Tipografía Moderna - JetBrains Mono como fuente principal */
+  --font-family-primary: 'JetBrains Mono', 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-display: 'JetBrains Mono', 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas, 'Monaco', monospace;
   
   --font-size-xs: 0.75rem;     /* 12px */
@@ -242,6 +242,7 @@ body {
   min-height: 100vh;
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-normal);
+  font-family: var(--font-family-primary);
   overflow-x: hidden;
 }
 
@@ -1529,4 +1530,37 @@ main {
 .neumorphic-card:hover {
   box-shadow: var(--hover-elevation);
   transform: translateY(-2px);
+}
+
+/* ===== FUENTES GLOBALES - JetBrains Mono ===== */
+
+/* Aplicar JetBrains Mono a toda la página */
+* {
+  font-family: var(--font-family-primary) !important;
+}
+
+/* Elementos de código usan fuente mono */
+code, pre, kbd, samp, .code, .monospace {
+  font-family: var(--font-family-mono) !important;
+}
+
+/* Formularios usan fuente mono */
+input, textarea, select, button {
+  font-family: var(--font-family-mono) !important;
+}
+
+/* Elementos específicos que deben usar fuente mono */
+.form-input, .form-select, .form-textarea, .btn, .button {
+  font-family: var(--font-family-mono) !important;
+}
+
+/* Headers y títulos principales usan fuente mono */
+h1, h2, h3, h4, h5, h6, .title, .heading {
+  font-family: var(--font-family-mono) !important;
+  font-weight: 600;
+}
+
+/* Texto normal usa fuente mono */
+p, span, div, li, td, th, label {
+  font-family: var(--font-family-primary) !important;
 }
