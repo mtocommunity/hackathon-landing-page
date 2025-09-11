@@ -3,12 +3,12 @@
 /* ===== GLOBAL IMPORTS ===== */
 
 /* Component styles */
-@import url('./components/modals-toasts.css');
-@import url('./components/footer.css');
+/* @import url('./components/modals-toasts.css'); - File not found, commented out */
+/* @import url('./components/footer.css'); - File not found, commented out */
 
 /* Page-specific styles */
-@import url('./pages/retos.css');
-@import url('./pages/inscripcion.css');
+/* @import url('./pages/retos.css'); - File not found, commented out */
+/* @import url('./pages/inscripcion.css'); - File not found, commented out */
 
 /* Sistema de Diseño Neomórfico - Modo Claro */
 

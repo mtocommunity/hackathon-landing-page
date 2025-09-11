@@ -1,10 +1,9 @@
 ---
 export interface Props {
   class?: string;
-  currentPath?: string;
 }
 
-const { class: className = '', currentPath } = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
 
 <header class={`header ${className}`}>
@@ -524,7 +523,6 @@ const { class: className = '', currentPath } = Astro.props;
     });
 
     // Scroll effects with throttling
-    let lastScrollY = window.scrollY;
     let ticking = false;
 
     function updateHeader() {
@@ -536,7 +534,6 @@ const { class: className = '', currentPath } = Astro.props;
         header?.classList.remove('scrolled');
       }
       
-      lastScrollY = scrollY;
       ticking = false;
     }
 

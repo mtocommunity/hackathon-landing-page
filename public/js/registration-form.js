@@ -611,7 +611,7 @@ class RegistrationForm {
       await this.submitRegistration(formData);
       
       // Mostrar modal de éxito
-      this.showSuccessModal(formData);
+      this.showSuccessModal();
       
       // Limpiar datos guardados
       this.clearFormData();
@@ -675,10 +675,10 @@ class RegistrationForm {
   }
 
   generateTeamId() {
-    return 'MTO-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
+    return 'MTO-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
   }
 
-  showSuccessModal(formData) {
+  showSuccessModal() {
     const modal = document.getElementById('success-modal');
     const teamIdElement = document.getElementById('team-id');
     
