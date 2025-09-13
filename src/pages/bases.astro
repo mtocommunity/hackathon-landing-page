@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__background">
+        <div class="hero__grid"></div>
+        <div class="hero__glow"></div>
+      </div>
+      
+      <div class="container">
+        <div class="hero__content">
+          
+          <!-- Logos Section -->
+          <div>
+            <div class="flex justify-center align-center">
+              <div>
+                <div>
+                  <img 
+                    src="/images/image.png" 
+                    alt="MTO Hackathon 2025 Logo" 
+                    class="object-contain relative z-10"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Text Section -->
+          <div class="hero__text-section">
+            
+            <h1 class="title-neon-primary">
+              Bases del concurso
+            </h1>
+            
+            <p class="hero__description">
+              Conoces las reglas, criterios y requisitos para participar en el MTO hackaton 2025. Lee detenidamente antes de inscribirte.
+            </p>
+          </div>
+          
+          <!-- Botones CTA -->
+          <div class="hero__actions">
+            <button class="btn-neon-primary hover-lift">
+              🚀 Descarga PDF completo
+            </button>
+          </div>
+          <div class="hero__actions">
+            <button class="btn-neon-primary hover-lift">
+              📄 Inscribete ahora 
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <Footer />
+</Layout>
