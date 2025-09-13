@@ -13,9 +13,9 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.6.6",
     "@libsql/client": "^0.15.14",
-    "@tailwindcss/vite": "^4.1.12",
+    "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.4",
-    "tailwindcss": "^4.1.12",
+    "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2"
   }
 }
