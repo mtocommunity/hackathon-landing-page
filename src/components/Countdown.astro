@@ -1,0 +1,59 @@
+---
+export interface Props {
+    targetDateStr: string;
+}
+
+const { targetDateStr } = Astro.props;
+---
+
+<div id="countdown" class="my-10 flex flex-wrap justify-center items-center gap-8" data-target-date={targetDateStr}>
+    <div class="flex flex-col gap-2 mx-5 md:mx-auto justify-center items-center">
+        <div class="border-6 rounded-lg px-1 py-4 md:py-6 lg:py-8 border-primary" id="days">
+            <span class="font-secondary text-6xl md:text-8xl lg:text-9xl text-bold text-primary-dark"></span>
+        </div>
+        <p class="font-secondary text-md text-bold text-primary text-2xl">días</p>
+    </div>
+    <div class="flex flex-col gap-2 mx-5 md:mx-auto justify-center items-center">
+        <div class="border-6 rounded-lg px-1 py-4 md:py-6 lg:py-8 border-secondary" id="hours">
+            <span class="font-secondary text-6xl md:text-8xl lg:text-9xl text-bold text-secondary-dark"></span>
+        </div>
+        <p class="font-secondary text-md text-bold text-secondary text-2xl">horas</p>
+    </div>
+    <div class="flex flex-col gap-2 mx-5 md:mx-auto justify-center items-center">
+        <div class="border-6 rounded-lg px-1 py-4 md:py-6 lg:py-8 border-tertiary-light" id="minutes">
+            <span class="font-secondary text-6xl md:text-8xl lg:text-9xl text-bold text-tertiary"></span>
+        </div>
+        <p class="font-secondary text-md text-bold text-tertiary-light text-2xl">minutos</p>
+    </div>
+</div>
+
+<script type="module">
+  const countdownElement = document.getElementById("countdown");
+  const targetDate = new Date(countdownElement.dataset.targetDate).getTime();
+
+  const daysElement = document.querySelector("#days span");
+  const hoursElement = document.querySelector("#hours span");
+  const minutesElement = document.querySelector("#minutes span");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      daysElement.textContent = hoursElement.textContent = minutesElement.textContent = 0;
+      clearInterval(interval);
+    } else {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      daysElement.textContent = days.toString().padStart(2, '0');
+      hoursElement.textContent = hours.toString().padStart(2, '0');
+      minutesElement.textContent = minutes.toString().padStart(2, '0');
+    }
+  }
+
+  const interval = setInterval(updateCountdown, 60000);
+
+  updateCountdown();
+</script>

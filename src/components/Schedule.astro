@@ -1,0 +1,29 @@
+---
+export interface Props {
+    events: {title: string, description: string}[];
+}
+
+const {events} = Astro.props;
+---
+
+<div class="flex flex-col items-start w-fit py-10 mx-auto">
+  <!-- Línea de tiempo -->
+  <div class="relative w-full pt-10">
+    <!-- Línea central con degradado -->
+    <div class="absolute inset-0 flex flex-col items-start">
+      <div class="w-1 ml-1.5 rounded bg-gradient-to-t from-90% from-secondary to-transparent h-full"></div>
+    </div>
+
+    <!-- Evento 1 -->
+
+    {events.map((event) => (
+      <div class="flex items-start mb-8 relative z-10">
+      <div class="w-4 h-4 bg-secondary rounded-full"></div>
+      <div class="ml-4 text-left">
+        <h3 class="text-lg font-semibold text-black">{event.title}</h3>
+        <p class="text-tertiary font-primary font-light mt-2">{event.description}</p>
+      </div>
+    </div>
+    ))}
+  </div>
+</div>
