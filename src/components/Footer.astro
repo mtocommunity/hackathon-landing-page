@@ -1,50 +1,64 @@
 ---
 const socialLinks = [
-  { name: 'Instagram', href: '#', icon: 'instagram' },
-  { name: 'LinkedIn', href: '#', icon: 'linkedin' },
-  { name: 'TikTok', href: '#', icon: 'tiktok' },
-  { name: 'YouTube', href: '#', icon: 'youtube' },
-  { name: 'GitHub', href: '#', icon: 'github' },
-  { name: 'Twitch', href: '#', icon: 'twitch' },
-  { name: 'WhatsApp', href: '#', icon: 'whatsapp' }
+  { name: 'Instagram', href: '#', icon: '📷' },
+  { name: 'LinkedIn', href: '#', icon: '💼' },
+  { name: 'TikTok', href: '#', icon: '🎵' },
+  { name: 'YouTube', href: '#', icon: '🎥' },
+  { name: 'GitHub', href: '#', icon: '👩‍💻' },
+  { name: 'Twitch', href: '#', icon: '🎮' },
+  { name: 'WhatsApp', href: '#', icon: '💬' }
 ];
 
 const quickLinks = [
   { name: 'Inicio', href: '/' },
-  { name: 'Retos', href: '/retos' },
-  { name: 'Jurado', href: '/jurado' },
-  { name: 'Organizadores', href: '/staff' },
   { name: 'Bases', href: '/bases' },
+  { name: 'Jurado', href: '/jurado' },
+  { name: 'Staff', href: '/staff' },
   { name: 'Inscripción', href: '/inscripcion' }
 ];
 ---
 
-<footer class="footer">
-  <div class="container">
+<footer class="bg-tertiary border-t border-primary/20 mt-16 py-12">
+  <div class="max-w-6xl mx-auto px-6">
     <!-- Sección Principal del Footer -->
-    <div class="footer__main">
-      <div class="footer__content">
+    <div class="mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         <!-- Logo y descripción -->
-        <div class="footer__brand">
-          <div class="footer__logo">
-            <div class="logo-icon">
-              <img src="/images/logo.png" alt="MTO Hackathon 2025 Logo" class="footer__logo-image">
+        <div class="lg:col-span-2 flex flex-col gap-4">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
+              <img src="/images/logo.png" alt="MTO Hackathon 2025 Logo" class="w-8 h-8 object-contain">
             </div>
-            <span class="logo-text">MANY TO ONE</span>
+            <span class="text-white font-bold text-lg font-secondary tracking-wider">MANY TO ONE</span>
           </div>
-          <p class="footer__description">
+          <p class="text-gray-400 text-sm leading-relaxed max-w-md">
             Construyendo un futuro tecnológico desde Perú para el mundo.
-            Únete al hackathon más innovador del año.
+            Únete al hackathon más innovador del año y demuestra tu talento.
           </p>
+          
+          <div class="flex flex-wrap gap-3 mt-4">
+            {socialLinks.map((social) => (
+              <a 
+                href={social.href} 
+                class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-lg flex items-center justify-center text-primary hover:text-primary-light transition-all duration-300 hover:scale-110 border border-primary/20 hover:border-primary/40" 
+                aria-label={social.name}
+                title={social.name}
+              >
+                <span class="text-lg">{social.icon}</span>
+              </a>
+            ))}
+          </div>
         </div>
 
-        <!-- Enlaces rápidos -->
-        <div class="footer__section">
-          <h3 class="footer__title">Enlaces Rápidos</h3>
-          <ul class="footer__list">
+        <div class="flex flex-col gap-4">
+          <h3 class="text-white font-semibold text-base mb-2">Enlaces Rápidos</h3>
+          <ul class="flex flex-col gap-2">
             {quickLinks.map((link) => (
-              <li class="footer__list-item">
-                <a href={link.href} class="footer__link">
+              <li>
+                <a 
+                  href={link.href} 
+                  class="text-gray-400 hover:text-secondary text-sm transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                >
                   {link.name}
                 </a>
               </li>
@@ -52,236 +66,42 @@ const quickLinks = [
           </ul>
         </div>
 
-        <!-- Información de contacto -->
-        <div class="footer__section">
-          <h3 class="footer__title">Contacto</h3>
-          <div class="footer__contact-info">
-            <div class="contact-item">
-              <span class="contact-icon">📧</span>
-              <span class="contact-text">hackathon@mto.pe</span>
+        <div class="flex flex-col gap-4">
+          <h3 class="text-white font-semibold text-base mb-2">Contacto</h3>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-secondary text-sm">📧</span>
+              <span class="text-gray-400 text-sm">hackathon@mto.pe</span>
             </div>
-            <div class="contact-item">
-              <span class="contact-icon">📱</span>
-              <span class="contact-text">+51 987654321</span>
+            <div class="flex items-center gap-2">
+              <span class="text-secondary text-sm">📱</span>
+              <span class="text-gray-400 text-sm">+51 987 654 321</span>
             </div>
-            <div class="contact-item">
-              <span class="contact-icon">📍</span>
-              <span class="contact-text">Chiclayo, Perú</span>
+            <div class="flex items-center gap-2">
+              <span class="text-secondary text-sm">📍</span>
+              <span class="text-gray-400 text-sm">Chiclayo, Perú</span>
             </div>
-          </div>
-        </div>
-
-        <!-- Redes sociales -->
-        <div class="footer__section">
-          <h3 class="footer__title">Síguenos</h3>
-          <div class="social-links">
-            {socialLinks.map((social) => (
-              <a href={social.href} class="social-link" aria-label={social.name}>
-                <i class={`icon-${social.icon}`}></i>
-              </a>
-            ))}
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Sección Inferior -->
-    <div class="footer__bottom">
-      <div class="footer__bottom-content">
-        <div class="footer__copyright">
+    <div class="border-t border-primary/10 pt-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-gray-400 text-sm">
           <p>&copy; 2025 Many To One. Todos los derechos reservados.</p>
         </div>
-        <div class="footer__legal">
-          <a href="/privacy" class="footer__link footer__link--small">Privacidad</a>
-          <span class="footer__separator">|</span>
-          <a href="/terms" class="footer__link footer__link--small">Términos</a>
-          <span class="footer__separator">|</span>
-          <a href="/cookies" class="footer__link footer__link--small">Cookies</a>
+        <div class="flex items-center gap-3">
+          <a href="/privacy" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Privacidad</a>
+          <span class="text-gray-600 text-xs">|</span>
+          <a href="/terms" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Términos</a>
+          <span class="text-gray-600 text-xs">|</span>
+          <a href="/cookies" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Cookies</a>
         </div>
       </div>
     </div>
   </div>
 </footer>
 
-<style>
-.footer {
-  background: var(--primary-bg);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: var(--spacing-16);
-  padding: var(--spacing-12) 0;
-}
 
-.footer__main {
-  margin-bottom: var(--spacing-8);
-}
-
-.footer__content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-8);
-  margin-bottom: var(--spacing-8);
-}
-
-.footer__brand {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.footer__logo {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-  margin-bottom: var(--spacing-4);
-}
-
-.footer__logo-image {
-  height: 40px;
-  width: auto;
-}
-
-.logo-text {
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-lg);
-  color: var(--text-primary);
-}
-
-.footer__description {
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-  line-height: 1.6;
-  max-width: 300px;
-}
-
-.footer__section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.footer__title {
-  color: var(--text-primary);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-2);
-}
-
-.footer__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
-.footer__list-item {
-  margin: 0;
-}
-
-.footer__link {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: var(--font-size-sm);
-  transition: var(--transition-fast);
-}
-
-.footer__link:hover {
-  color: var(--text-accent);
-}
-
-.footer__contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
-.contact-icon {
-  font-size: var(--font-size-sm);
-}
-
-.contact-text {
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-}
-
-.social-links {
-  display: flex;
-  gap: var(--spacing-3);
-}
-
-.social-link {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: var(--font-size-lg);
-  transition: var(--transition-fast);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.social-link:hover {
-  color: var(--text-accent);
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.footer__bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: var(--spacing-6);
-}
-
-.footer__bottom-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-4);
-}
-
-.footer__copyright {
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-}
-
-.footer__legal {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-
-.footer__link--small {
-  font-size: var(--font-size-xs);
-}
-
-.footer__separator {
-  color: var(--text-muted);
-  font-size: var(--font-size-xs);
-}
-
-@media (max-width: 768px) {
-  .footer__content {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-6);
-  }
-
-  .footer__bottom-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer__legal {
-    justify-content: center;
-  }
-}
-</style>
         
