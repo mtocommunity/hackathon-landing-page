@@ -1,0 +1,342 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+      <!-- QUE VIVA TELWIN -->
+
+<header class={`fixed top-0 left-0 right-0 z-[1220] bg-transparent border-b border-white/60 backdrop-blur-xl h-20 transition-all duration-300 ${className}`}>
+  <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 transition-opacity duration-300 pointer-events-none opacity-5"></div>
+  
+  <nav class="max-w-6xl mx-auto flex items-center justify-between px-6 h-full">
+    <a href="/" class="flex items-center gap-3 text-xl font-bold text-gray-800 no-underline relative z-[2] p-2 rounded-lg transition-all duration-300 group hover:-translate-y-0.5 hover:scale-[1.02]">
+      <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1)] opacity-0 transition-all duration-300 -z-10 group-hover:opacity-100 group-hover:shadow-[inset_-4px_-4px_8px_rgba(255,255,255,0.8),inset_4px_4px_8px_rgba(0,0,0,0.15),0_0_20px_rgba(59,130,246,0.3)]"></div>
+      
+      <!--<div class="w-12 h-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1)] border border-white/80 transition-all duration-300 relative overflow-hidden group-hover:scale-110 group-hover:rotate-[5deg] group-hover:shadow-[0_8px_25px_rgba(0,0,0,0.15),0_0_20px_rgba(59,130,246,0.4)] group-hover:border-blue-400/50">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-primary via-secondary to-primary rounded-2xl opacity-0 transition-opacity duration-300 -z-10 group-hover:opacity-100"></div>
+        
+        <img src="/images/logo.png" alt="MTO Logo" class="w-8 h-8 object-contain transition-all duration-300 relative z-[1] drop-shadow-[0_0_5px_rgba(59,130,246,0.3)] group-hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
+      </div>
+      
+      <span class="bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent bg-[length:200%_200%] text-2xl font-black -tracking-wider uppercase animate-gradient drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]">MTO</span>
+    -->
+    </a>
+
+    <div class="nav-menu flex items-center transition-all duration-500" id="nav-menu">
+      <ul class="flex items-center gap-2 list-none m-0 p-0">
+        <li><a href="/" class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40">Inicio</a></li>
+        <li><a href="/bases" class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40">Bases</a></li>
+        <li><a href="/jurado" class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40">Jurado</a></li>
+        <li><a href="/staff" class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40">Staff</a></li>
+        <li><a href="/" class="nav-link--cta bg-gradient-to-r from-primary to-secondary text-white font-semibold shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] border border-white/80 relative ml-4 px-6 py-3 rounded-lg transition-all duration-300 ease-out hover:from-primary/90 hover:to-secondary/90 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15),0_0_20px_rgba(139,92,246,0.4)] hover:border-purple-400/60">Inscríbete</a></li> 
+      </ul>
+    </div>
+
+    <button class="nav-toggle hidden flex-col justify-between w-8 h-6 bg-gradient-to-br from-gray-100 to-gray-200 border border-white/60 rounded-md shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1)] cursor-pointer p-1 z-[1001] transition-all duration-300 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(6,182,212,0.3)] hover:scale-105" id="nav-toggle" aria-label="Menú">
+      <span class="block h-0.5 w-full bg-gradient-to-r from-primary to-secondary rounded-sm transition-all duration-300 origin-center shadow-[0_0_5px_rgba(59,130,246,0.3)]"></span>
+      <span class="block h-0.5 w-full bg-gradient-to-r from-primary to-secondary rounded-sm transition-all duration-300 origin-center shadow-[0_0_5px_rgba(59,130,246,0.3)]"></span>
+      <span class="block h-0.5 w-full bg-gradient-to-r from-primary to-secondary rounded-sm transition-all duration-300 origin-center shadow-[0_0_5px_rgba(59,130,246,0.3)]"></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 4s ease-in-out infinite;
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex !important;
+    }
+
+    .nav-menu {
+      position: fixed !important;
+      top: 80px !important;
+      left: 0 !important;
+      right: 0 !important;
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
+      box-shadow: inset -4px -4px 8px rgba(255,255,255,0.8), inset 4px 4px 8px rgba(0,0,0,0.15) !important;
+      backdrop-filter: blur(20px) !important;
+      transform: translateY(-100%) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      transition: all 0.5s ease !important;
+      z-index: 1000 !important;
+      max-height: calc(100vh - 80px) !important;
+      overflow-y: auto !important;
+    }
+
+    .nav-menu.active {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .nav-menu ul {
+      flex-direction: column !important;
+      gap: 12px !important;
+      padding: 24px !important;
+      width: 100% !important;
+    }
+
+    .nav-menu .nav-link {
+      width: 100% !important;
+      padding: 16px 24px !important;
+      text-align: center !important;
+      font-size: 18px !important;
+      opacity: 0 !important;
+      transform: translateY(20px) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .nav-menu.active .nav-link {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      animation: slide-in-up 0.4s ease-out forwards !important;
+    }
+
+    .nav-menu .nav-link--cta {
+      padding: 20px 32px !important;
+      font-size: 20px !important;
+      margin-left: 0 !important;
+      margin-top: 16px !important;
+    }
+
+    .nav-menu.active ul li:nth-child(1) .nav-link { animation-delay: 0.05s !important; }
+    .nav-menu.active ul li:nth-child(2) .nav-link { animation-delay: 0.1s !important; }
+    .nav-menu.active ul li:nth-child(3) .nav-link { animation-delay: 0.15s !important; }
+    .nav-menu.active ul li:nth-child(4) .nav-link { animation-delay: 0.2s !important; }
+    .nav-menu.active ul li:nth-child(5) .nav-link { animation-delay: 0.25s !important; }
+  }
+
+  .nav-link--cta {
+    transform-origin: center !important;
+    will-change: transform !important;
+    backface-visibility: hidden !important;
+    perspective: 1000px !important;
+    position: relative !important;
+    isolation: isolate !important;
+  }
+
+  .nav-link--cta:hover {
+    transform: translateY(-4px) scale(1.05) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .nav-link:not(.nav-link--cta):hover {
+    z-index: 10 !important;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px) !important;
+    background: linear-gradient(135deg, #e11d48, #1e40af) !important;
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px) !important;
+    background: linear-gradient(135deg, #e11d48, #1e40af) !important;
+  }
+
+  .nav-toggle.active {
+    box-shadow: inset -2px -2px 5px rgba(255,255,255,0.7), inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 20px rgba(236, 72, 153, 0.4) !important;
+  }
+
+  .header.scrolled {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%) !important;
+    box-shadow: inset -4px -4px 8px rgba(255,255,255,0.8), inset 4px 4px 8px rgba(0,0,0,0.15), 0 0 20px rgba(59,130,246,0.3) !important;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2) !important;
+  }
+
+  .header.scrolled > div:first-child {
+    opacity: 0.1 !important;
+  }
+
+  .nav-link:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+    box-shadow: inset -2px -2px 5px rgba(255,255,255,0.7), inset 2px 2px 5px rgba(0,0,0,0.1), 0 0 20px rgba(59,130,246,0.3) !important;
+  }
+
+  .nav-toggle:focus-visible {
+    outline: 2px solid #3b82f6 !important;
+    outline-offset: 2px !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-link,
+    a,
+    .nav-toggle,
+    header,
+    .animate-gradient {
+      transition: none !important;
+      animation: none !important;
+    }
+    
+    .nav-menu.active .nav-link {
+      animation: none !important;
+    }
+  }
+
+  /* Small mobile adjustments */
+  @media (max-width: 480px) {
+    header nav {
+      padding: 0 16px !important;
+    }
+
+    header nav a {
+      font-size: 18px !important;
+      gap: 8px !important;
+    }
+
+    header nav a > div {
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    header nav a img {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    header nav a span {
+      font-size: 20px !important;
+    }
+
+    .nav-toggle {
+      width: 28px !important;
+      height: 20px !important;
+    }
+
+    .nav-menu .nav-link {
+      font-size: 16px !important;
+      padding: 12px 16px !important;
+    }
+
+    .nav-menu .nav-link--cta {
+      padding: 16px 24px !important;
+      font-size: 18px !important;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('header') as HTMLElement;
+    const navToggle = document.getElementById('nav-toggle') as HTMLElement;
+    const navMenu = document.getElementById('nav-menu') as HTMLElement;
+    const navLinks = document.querySelectorAll('.nav-link, .nav-link--cta');
+
+    // Mobile menu toggle
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navMenu.classList.contains('active')) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // Close menu when clicking on nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (navToggle && navMenu) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // Scroll effects with throttling
+    let ticking = false;
+
+    function updateHeader() {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 50) {
+        header?.classList.add('scrolled');
+      } else {
+        header?.classList.remove('scrolled');
+      }
+      
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu?.classList.contains('active')) {
+        navToggle?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (navMenu?.classList.contains('active') && 
+          !navMenu.contains(target) && 
+          !navToggle?.contains(target)) {
+        navToggle?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        navToggle?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Initialize header state
+    updateHeader();
+  });
+</script>
