@@ -14,7 +14,7 @@ const quickLinks = [
   { name: 'Bases', href: '/bases' },
   { name: 'Jurado', href: '/jurado' },
   { name: 'Staff', href: '/staff' },
-  { name: 'Inscripción', href: '/inscripcion' }
+  { name: 'Inscripción', href: '/' }
 ];
 ---
 
@@ -26,28 +26,28 @@ const quickLinks = [
         <!-- Logo y descripción -->
         <div class="lg:col-span-2 flex flex-col gap-4">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
-              <img src="/images/logo.png" alt="MTO Hackathon 2025 Logo" class="w-8 h-8 object-contain">
-            </div>
+            <img src="/images/logo.png" alt="MTO Hackathon 2025 Logo" class="w-8 h-8 object-contain">
             <span class="text-white font-bold text-lg font-secondary tracking-wider">MANY TO ONE</span>
           </div>
           <p class="text-gray-400 text-sm leading-relaxed max-w-md">
             Construyendo un futuro tecnológico desde Perú para el mundo.
             Únete al hackathon más innovador del año y demuestra tu talento.
           </p>
+          <!--
+            <div class="flex flex-wrap gap-3 mt-4">
+              {socialLinks.map((social) => (
+                <a 
+                  href={social.href} 
+                  class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-lg flex items-center justify-center text-primary hover:text-primary-light transition-all duration-300 hover:scale-110 border border-primary/20 hover:border-primary/40" 
+                  aria-label={social.name}
+                  title={social.name}
+                >
+                  <span class="text-lg">{social.icon}</span>
+                </a>
+              ))}
+            </div>
           
-          <div class="flex flex-wrap gap-3 mt-4">
-            {socialLinks.map((social) => (
-              <a 
-                href={social.href} 
-                class="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-lg flex items-center justify-center text-primary hover:text-primary-light transition-all duration-300 hover:scale-110 border border-primary/20 hover:border-primary/40" 
-                aria-label={social.name}
-                title={social.name}
-              >
-                <span class="text-lg">{social.icon}</span>
-              </a>
-            ))}
-          </div>
+          -->
         </div>
 
         <div class="flex flex-col gap-4">
@@ -70,16 +70,8 @@ const quickLinks = [
           <h3 class="text-white font-semibold text-base mb-2">Contacto</h3>
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-2">
-              <span class="text-secondary text-sm">📧</span>
-              <span class="text-gray-400 text-sm">hackathon@mto.pe</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-secondary text-sm">📱</span>
-              <span class="text-gray-400 text-sm">+51 987 654 321</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-secondary text-sm">📍</span>
-              <span class="text-gray-400 text-sm">Chiclayo, Perú</span>
+              <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 18L9 12M20 18L15 12M3 8L10.225 12.8166C10.8665 13.2443 11.1872 13.4582 11.5339 13.5412C11.8403 13.6147 12.1597 13.6147 12.4661 13.5412C12.8128 13.4582 13.1335 13.2443 13.775 12.8166L21 8M6.2 19H17.8C18.9201 19 19.4802 19 19.908 18.782C20.2843 18.5903 20.5903 18.2843 20.782 17.908C21 17.4802 21 16.9201 21 15.8V8.2C21 7.0799 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V15.8C3 16.9201 3 17.4802 3.21799 17.908C3.40973 18.2843 3.71569 18.5903 4.09202 18.782C4.51984 19 5.07989 19 6.2 19Z" stroke="#fff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+              <span class="text-gray-400 text-sm">contact@mtocommunity.com</span>
             </div>
           </div>
         </div>
@@ -92,11 +84,9 @@ const quickLinks = [
           <p>&copy; 2025 Many To One. Todos los derechos reservados.</p>
         </div>
         <div class="flex items-center gap-3">
-          <a href="/privacy" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Privacidad</a>
+          <a href="https://cdn.mtocommunity.com/legal/Privacy.pdf" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Privacidad</a>
           <span class="text-gray-600 text-xs">|</span>
-          <a href="/terms" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Términos</a>
-          <span class="text-gray-600 text-xs">|</span>
-          <a href="/cookies" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Cookies</a>
+          <a href="https://cdn.mtocommunity.com/legal/TOS.pdf" class="text-gray-400 hover:text-secondary text-xs transition-colors duration-300">Términos</a>
         </div>
       </div>
     </div>

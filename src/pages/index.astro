@@ -4,6 +4,7 @@ import Title from '../components/Title.astro';
 import Card from '../components/Card.astro';
 import InscriptionButton from '../components/InscriptionButton.astro';
 import Logo from '../components/Logo.astro';
+import Countdown from '../components/Countdown.astro';
 
 // Features del evento
 const features = [
@@ -36,77 +37,73 @@ const features = [
 ---
 
 <Layout title="MTO Hackathon 2025 - Inicio">
-
-  <main class="border-neon m-3">
-    
-    <Logo/>
-
-    <p class="font-secondary font-thin text-lg md:text-xl mx-auto text-center mt-4">
-      Construyendo un futuro tecnológico desde Perú para el mundo
-    </p>
-    
-    <InscriptionButton/>
-    
-    <!-- About Section -->
-    <section class="section">
-      <div class="container mx-auto">
-        <div class="text-center">
-          <Title content='¿Qué es la Hackathon?'/>
-          
-          <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
-            Es una experiencia que abarcan 48 horas 
-            las cuales pondrás en practica tus habilidades 
-            como desarrollador, diseñador e incluso 
-            como emprendedor, es un espacio donde mentes 
-            inquietas se unen para transformar ideas en soluciones reales que mejoran el mundo.
-          </p>
-        </div>
-        
-        <!-- Features Grid -->
-        <div class="flex flex-wrap justify-center gap-5 p-3 my-16">
-          {features.map((feature) => (
-            <Card pathImg={`images/card-icons/${feature.icon}.png`}
-            title={feature.title}
-            description={feature.description}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Event Info Section -->
-    <section class="section bg-primary-bg">
-      <div class="container mx-auto">
-        <div class="text-center">
-          <Title content='Información del Evento'/>
-          
-          <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
-            Todo lo que necesitas saber para participar.
-          </p>
-        </div>
-
-        <div class="group text-center max-w-md mx-auto p-6 my-16 bg-white shadow-lg rounded-2xl overflow-hidden relative transition-all duration-300 ease-in-out hover:shadow-xl">
-          <h3 class="font-primary font-bold text-xl md:text-2xl">Fecha del evento</h3>
-          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
-            Del 1 al 3 de Octubre.
-          </p>
-
-          <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Lugar del evento</h3>
-          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
-            En proceso...
-          </p>
-
-          <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Equipos</h3>
-          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
-            Equipos multidisciplinarios de entre 4 a 6 estudiantes.
-          </p>
-
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        </div>
-      </div>
-    </section>
-
-    
-  </main>
   
+  <Logo/>
+
+  <p class="font-secondary font-thin text-lg md:text-xl mx-auto text-center mt-4">
+    Construyendo un futuro tecnológico desde Perú para el mundo
+  </p>
+
+  <Countdown targetDateStr="2025-09-17T12:00:00"/>
+  
+  <InscriptionButton/>
+  
+  <!-- About Section -->
+  <section class="section">
+    <div class="container mx-auto">
+      <div class="text-center">
+        <Title content='¿Qué es la Hackathon?'/>
+        
+        <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+          Es una experiencia que abarcan 48 horas 
+          las cuales pondrás en practica tus habilidades 
+          como desarrollador, diseñador e incluso 
+          como emprendedor, es un espacio donde mentes 
+          inquietas se unen para transformar ideas en soluciones reales que mejoran el mundo.
+        </p>
+      </div>
+      
+      <!-- Features Grid -->
+      <div class="flex flex-wrap justify-center gap-5 p-3 my-16">
+        {features.map((feature) => (
+          <Card pathImg={`images/card-icons/${feature.icon}.png`}
+          title={feature.title}
+          description={feature.description}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Info Section -->
+  <section class="section bg-primary-bg">
+    <div class="container mx-auto">
+      <div class="text-center">
+        <Title content='Información del Evento'/>
+        
+        <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+          Todo lo que necesitas saber para participar.
+        </p>
+      </div>
+
+      <div class="group text-center max-w-md mx-auto p-6 my-16 bg-white shadow-lg rounded-2xl overflow-hidden relative transition-all duration-300 ease-in-out hover:shadow-xl">
+        <h3 class="font-primary font-bold text-xl md:text-2xl">Fecha del evento</h3>
+        <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+          Del 1 al 3 de Octubre.
+        </p>
+
+        <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Lugar del evento</h3>
+        <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+          UTP Campus Chiclayo.
+        </p>
+
+        <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Equipos</h3>
+        <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+          Equipos multidisciplinarios de entre 4 a 6 estudiantes.
+        </p>
+
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
+    </div>
+  </section>
 </Layout>
