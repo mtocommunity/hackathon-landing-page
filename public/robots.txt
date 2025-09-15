@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hackathon.mtocommunity.com/sitemap.xml
