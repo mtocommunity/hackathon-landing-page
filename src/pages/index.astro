@@ -1,37 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Title from '../components/Title.astro';
+import Card from '../components/Card.astro';
+import InscriptionButton from '../components/InscriptionButton.astro';
+import Logo from '../components/Logo.astro';
 
 // Features del evento
 const features = [
   {
-    icon: '💡',
+    icon: 'innovation',
     title: 'Innovación',
     description: 'Desarrolla soluciones tecnológicas que resuelvan problemas reales de la sociedad peruana.'
   },
   {
-    icon: '🤝',
+    icon: 'networking',
     title: 'Networking',
     description: 'Conecta con otros desarrolladores, empresarios y profesionales del sector tech.'
   },
   {
-    icon: '🏆',
-    title: 'Premios',
-    description: 'Compite por premios increíbles y oportunidades laborales en las mejores empresas.'
-  },
-  {
-    icon: '📚',
-    title: 'Aprendizaje',
-    description: 'Aprende nuevas tecnologías, metodologías y mejores prácticas de desarrollo.'
-  },
-  {
-    icon: '🚀',
+    icon: 'mentory',
     title: 'Mentoría',
     description: 'Recibe guía de expertos en la industria y líderes tecnológicos.'
   },
   {
-    icon: '🌟',
+    icon: 'property',
+    title: 'Propiedad',
+    description: 'Tendrás los derechos sobre todo lo que desarrolles durante el evento.'
+  },
+  {
+    icon: 'experience',
     title: 'Experiencia',
     description: 'Vive una experiencia única de 48 horas de pura creatividad y desarrollo.'
   }
@@ -39,77 +36,39 @@ const features = [
 ---
 
 <Layout title="MTO Hackathon 2025 - Inicio">
-  <Header />
 
   <main class="border-neon m-3">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero__background">
-        <div class="hero__grid"></div>
-        <div class="hero__glow"></div>
-      </div>
-      
-      <div class="container">
-        <div class="hero__content">
-          
-          <!-- Logos Section -->
-          <div>
-            <div class="flex justify-center align-center">
-              <div>
-                <div>
-                  <img 
-                    src="/images/image.png" 
-                    alt="MTO Hackathon 2025 Logo" 
-                    class="object-contain relative z-10"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Text Section -->
-          <div class="hero__text-section">
-            
-            <p class="hero__description">
-              Construyendo un futuro tecnológico desde Perú para el mundo
-              <span class="text-magenta font-bold">¿Dí?</span>
-            </p>
-          </div>
-          
-          <!-- Botones CTA -->
-          <div class="hero__actions">
-            <button class="btn-neon-primary hover-lift">
-              🚀 ¡Inscríbete Ahora!
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    
+    <Logo/>
 
+    <p class="font-secondary font-thin text-lg md:text-xl mx-auto text-center mt-4">
+      Construyendo un futuro tecnológico desde Perú para el mundo
+    </p>
+    
+    <InscriptionButton/>
+    
     <!-- About Section -->
-    <section class="section bg-secondary-bg">
-      <div class="container">
+    <section class="section">
+      <div class="container mx-auto">
         <div class="text-center">
-          <h2 class="section-title title-neon-primary animate-slide-in-up">
-            ¿Qué es MTO Hackathon?
-          </h2>
+          <Title content='¿Qué es la Hackathon?'/>
           
-          <p class="section-description animate-slide-in-up" style="animation-delay: 0.2s;">
-            Un evento de 48 horas donde desarrolladores, diseñadores y emprendedores 
-            se unen para crear soluciones innovadoras que impacten positivamente en la sociedad.
+          <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+            Es una experiencia que abarcan 48 horas 
+            las cuales pondrás en practica tus habilidades 
+            como desarrollador, diseñador e incluso 
+            como emprendedor, es un espacio donde mentes 
+            inquietas se unen para transformar ideas en soluciones reales que mejoran el mundo.
           </p>
         </div>
         
         <!-- Features Grid -->
-        <div class="card-grid">
-          {features.map((feature, index) => (
-            <div class="feature-card animate-slide-in-up hover-lift" style={`animation-delay: ${index * 0.1}s`}>
-              <div class="feature-card__icon animate-float" style={`animation-delay: ${index * 0.5}s`}>
-                {feature.icon}
-              </div>
-              <h3 class="feature-card__title text-navy">{feature.title}</h3>
-              <p class="feature-card__description">{feature.description}</p>
-            </div>
+        <div class="flex flex-wrap justify-center gap-5 p-3 my-16">
+          {features.map((feature) => (
+            <Card pathImg={`images/card-icons/${feature.icon}.png`}
+            title={feature.title}
+            description={feature.description}
+            />
           ))}
         </div>
       </div>
@@ -117,202 +76,37 @@ const features = [
 
     <!-- Event Info Section -->
     <section class="section bg-primary-bg">
-      <div class="container">
+      <div class="container mx-auto">
         <div class="text-center">
-          <h2 class="section-title title-neon-secondary animate-slide-in-up">
-            Información del Evento
-          </h2>
+          <Title content='Información del Evento'/>
           
-          <p class="section-description animate-slide-in-up" style="animation-delay: 0.2s;">
-            Todo lo que necesitas saber para participar en el MTO Hackathon 2025
+          <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+            Todo lo que necesitas saber para participar.
           </p>
         </div>
-        
-        <!-- Info Cards Container -->
-        <div class="max-w-6xl mx-auto">
-          <div class="feature-card neon-border hover-lift animate-fade-in-scale">
-            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-              
-              <div class="text-center p-6 bg-surface-bg rounded-xl shadow-neumorphism-small hover-lift group">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-magenta-vibrant/10 to-magenta-vibrant/20 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-500 shadow-neumorphism-small">
-                  📅
-                </div>
-                <div class="space-y-2">
-                  <h3 class="font-semibold text-navy text-lg">Fecha del Evento</h3>
-                  <p class="text-magenta font-medium">Octubre del 2025</p>
-                  <p class="text-muted text-sm">2 días intensivos</p>
-                </div>
-              </div>
-              
-              <div class="text-center p-6 bg-surface-bg rounded-xl shadow-neumorphism-small hover-lift group">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-bright/10 to-cyan-bright/20 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-500 shadow-neumorphism-small">
-                  📍
-                </div>
-                <div class="space-y-2">
-                  <h3 class="font-semibold text-navy text-lg">Ubicación</h3>
-                  <p class="text-cyan-bright font-medium">Universidad Tecnológica del Perú</p>
-                  <p class="text-muted text-sm">Chiclayo, Perú</p>
-                </div>
-              </div>
-              
-              <div class="text-center p-6 bg-surface-bg rounded-xl shadow-neumorphism-small hover-lift group">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-pink-intense/10 to-pink-intense/20 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-500 shadow-neumorphism-small">
-                  👥
-                </div>
-                <div class="space-y-2">
-                  <h3 class="font-semibold text-navy text-lg">Equipos</h3>
-                  <p class="text-pink-intense font-medium">4-6 integrantes por equipo</p>
-                  <p class="text-muted text-sm">Multidisciplinario</p>
-                </div>
-              </div>
-              
-              <div class="text-center p-6 bg-surface-bg rounded-xl shadow-neumorphism-small hover-lift group">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-aquamarine/10 to-aquamarine/20 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-500 shadow-neumorphism-small">
-                  💰
-                </div>
-                <div class="space-y-2">
-                  <h3 class="font-semibold text-navy text-lg">Premios</h3>
-                  <p class="text-aquamarine font-medium">Un aplauso</p>
-                  <p class="text-muted text-sm">+ Oportunidades laborales</p>
-                </div>
-              </div>
-            </div>
-          </div>
+
+        <div class="group text-center max-w-md mx-auto p-6 my-16 bg-white shadow-lg rounded-2xl overflow-hidden relative transition-all duration-300 ease-in-out hover:shadow-xl">
+          <h3 class="font-primary font-bold text-xl md:text-2xl">Fecha del evento</h3>
+          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+            Del 1 al 3 de Octubre.
+          </p>
+
+          <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Lugar del evento</h3>
+          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+            En proceso...
+          </p>
+
+          <h3 class="mt-7 font-primary font-bold text-xl md:text-2xl">Equipos</h3>
+          <p class="mt-5 font-secondary font-thin text-md md:text-lg">
+            Equipos multidisciplinarios de entre 4 a 6 estudiantes.
+          </p>
+
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       </div>
     </section>
 
-    <!-- CTA Final Section -->
-    <section class="section bg-tertiary-bg">
-      <div class="container max-w-5xl">
-        <div class="text-center">
-          
-          <div class="feature-card glass-effect neon-border animate-pulse-glow relative overflow-hidden">
-            <!-- Glow Effect Background -->
-            <div class="absolute inset-0 bg-gradient-to-br from-magenta-vibrant/5 via-cyan-bright/5 to-pink-intense/5 opacity-50"></div>
-            
-            <div class="relative z-10 space-y-12">
-              <div class="space-y-8">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-navy leading-tight">
-                  ¿Listo para el Desafío?
-                </h2>
-                <div class="w-24 h-1 bg-gradient-button rounded-full mx-auto"></div>
-                
-                <p class="text-xl lg:text-2xl text-blue-dark leading-relaxed max-w-3xl mx-auto font-medium">
-                  Únete a la comunidad de desarrolladores más innovadores del Perú y construye el futuro de la tecnología.
-                </p>
-              </div>
-              
-              <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <button class="btn-neon-primary hover-shimmer">
-                  🚀 ¡Inscríbete Ahora!
-                </button>
-                <button class="btn-neon-secondary hover-shimmer">
-                  📋 Ver Retos
-                </button>
-              </div>
-              
-              <!-- Mini Stats -->
-              <div class="grid grid-cols-3 gap-6 max-w-xl mx-auto pt-6">
-                <div class="stat text-center group">
-                  <div class="stat__number text-cyan-bright group-hover:scale-110 transition-transform duration-300">48h</div>
-                  <div class="stat__label">innovación</div>
-                </div>
-                <div class="stat text-center group">
-                  <div class="stat__number text-magenta group-hover:scale-110 transition-transform duration-300">500+</div>
-                  <div class="stat__label">participantes</div>
-                </div>
-                <div class="stat text-center group">
-                  <div class="stat__number text-pink-intense group-hover:scale-110 transition-transform duration-300">3</div>
-                  <div class="stat__label">retos épicos</div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Top Gradient Border -->
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-button"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
   </main>
   
-  <Footer />
 </Layout>
-
-<style>
-/* Estilos adicionales específicos para esta página */
-.hero {
-  margin: 0;
-  padding: 0;
-}
-
-.section {
-  margin: var(--spacing-8) 0;
-}
-
-.card-grid {
-  margin: var(--spacing-8) 0;
-}
-
-.feature-card {
-  margin: var(--spacing-2);
-}
-
-.stat {
-  margin: var(--spacing-2);
-  padding: var(--spacing-4);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero__content {
-    gap: var(--spacing-8);
-  }
-  
-  .hero__logo {
-    width: 150px;
-    height: 150px;
-  }
-  
-  .hero__logo svg,
-  .hero__logo img {
-    width: 90px;
-    height: 90px;
-  }
-  
-  .hero__actions {
-    flex-direction: column;
-    width: 100%;
-    gap: var(--spacing-4);
-  }
-  
-  .hero__stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-4);
-  }
-  
-  .card-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-6);
-  }
-}
-
-@media (max-width: 480px) {
-  .hero__logo {
-    width: 120px;
-    height: 120px;
-  }
-  
-  .hero__logo svg,
-  .hero__logo img {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .hero__stats {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-3);
-  }
-}
-</style>

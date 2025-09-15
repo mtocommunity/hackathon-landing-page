@@ -1,11 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import Title from '../components/Title.astro';
+import MainButton from '../components/MainButton.astro';
+import InscriptionButton from '../components/InscriptionButton.astro';
+import Schedule from '../components/Schedule.astro';
+
+const events = [
+  {
+    title: 'Charla introductoria',
+    description: 'Lunes 15 de septiembre',
+  },
+  {
+    title: 'Arquitecturas, APIs y Clean Code',
+    description: 'Miércoles 17 de septiembre',
+  },
+  {
+    title: 'Infraestructura',
+    description: 'Viernes 19 de septiembre',
+  },
+  {
+    title: 'Modelos de IA',
+    description: 'Martes 23 de septiembre',
+  },
+  {
+    title: 'Agentes de IA',
+    description: 'Jueves 25 de septiembre',
+  },
+];
 ---
 
 <Layout>
-  <Header />
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero__background">
@@ -32,31 +56,46 @@ import Footer from '../components/Footer.astro';
           </div>
           
           <!-- Text Section -->
-          <div class="hero__text-section">
-            
-            <h1 class="title-neon-primary">
-              Bases del concurso
-            </h1>
-            
-            <p class="hero__description">
-              Conoces las reglas, criterios y requisitos para participar en el MTO hackaton 2025. Lee detenidamente antes de inscribirte.
+          <div class="text-center">
+            <Title content='Bases del concurso'/>
+
+            <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+              Conoces las reglas, criterios y requisitos para participar en el MTO hackaton 2025.
+            </p>
+
+            <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+              Lee detenidamente antes de inscribirte.
             </p>
           </div>
-          
-          <!-- Botones CTA -->
-          <div class="hero__actions">
-            <button class="btn-neon-primary hover-lift">
-              🚀 Descarga PDF completo
-            </button>
+
+          <!-- Botones -->
+          <div class="my-10 flex flex-wrap flex-col justify-center items-center gap-5">
+            <MainButton name='Descargar PDF completo'/>
+            <InscriptionButton/>
           </div>
-          <div class="hero__actions">
-            <button class="btn-neon-primary hover-lift">
-              📄 Inscribete ahora 
-            </button>
+
+          <div class="text-center">
+            <Title content='Cronograma de actividades'/>
+            
+            <Schedule events={events}/>
+          </div>
+
+          <div class="p-6 mx-auto md:px-24">
+            <Title content='Preguntas frecuentes'/>
+            <div class="my-10">
+              <h1 class="mb-2 text-xl font-semibold">¿Quiénes participan en la Hackathon?</h1>
+              <p class="font-secondary font-thin">La hackatón está dirigida para equipos multidisciplinarios. No es necesario contar con amplia experiencia; lo más importante es la motivación, las ganas de aprender y trabajar en equipo.</p>
+              <h1 class="mb-2 mt-5 text-xl font-semibold">¿Cómo deben estar conformados los equipos?</h1>
+              <p class="font-secondary font-thin">Los equipos deben estar integrados por un mínimo de 4 estudiantes y un máximo de 6 estudiantes. Si no tienes un equipo completo, la organización te ayudará a conformarlo con otros participantes.</p>
+              <h1 class="mb-2 mt-5 text-xl font-semibold">¿Qué tecnologías o lenguajes se pueden usar?</h1>
+              <p class="font-secondary font-thin">No hay restricciones en cuanto a tecnologías, lenguajes o frameworks. Cada equipo es libre de elegir las herramientas con las que se sienta más cómodo o que considere más adecuadas para su proyecto.</p>
+              <h1 class="mb-2 mt-5 text-xl font-semibold">¿Cómo será la dinámica de la hackatón?</h1>
+              <p class="font-secondary font-thin">El evento tendrá una duración definida en la que los equipos deberán desarrollar su proyecto desde cero. Habrá espacios para mentorías, sesiones de consulta y momentos específicos para presentar avances. Al finalizar, cada equipo deberá exponer su prototipo o demo frente al jurado.</p>
+              <h1 class="mb-2 mt-5 text-xl font-semibold">¿Qué pasa con la propiedad intelectual de los proyectos?</h1>
+              <p class="font-secondary font-thin">Las ideas y prototipos creados durante la hackatón pertenecen a los equipos participantes. La organización no reclama derechos sobre los proyectos; sin embargo, podrá difundirlos en medios y redes sociales para promover el evento y los logros de los estudiantes.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
-  <Footer />
 </Layout>

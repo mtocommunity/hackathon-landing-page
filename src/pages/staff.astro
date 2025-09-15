@@ -1,0 +1,96 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Logo from "../components/Logo.astro";
+import Title from "../components/Title.astro";
+import Team from "../components/Team.astro";
+
+const mtoMembers = [
+    {
+        name: "Luis Bazán",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Junior Delgado",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Jorge Contreras",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Víctor Tuñoque",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Rodrigo Tejeda",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Brian Monteza",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Abner Cubas",
+        image: "images/member-def.png"
+    },
+]
+
+const mantaroMembers = [
+    {
+        name: "Luis Bazán",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Raul Sánchez",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Fabián Gonzales",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Johao Ignacio",
+        image: "images/member-def.png"
+    },
+    {
+        name: "José Terrones",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Manuel Sánchez",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Johan Llamo",
+        image: "images/member-def.png"
+    },
+    {
+        name: "Gonzalo Kair",
+        image: "images/member-def.png"
+    },
+]
+---
+
+<Layout>
+    <Logo/>
+    <div class="text-center my-10">
+        <Title content='Staff'/>
+        
+        <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
+        Conoce al equipo que hace esto posible. Detrás de cada evento, 
+        iniciativa y proyecto hay un equipo de personas comprometidas con 
+        crear un espacio donde aprender, innovar y colaborar sea una experiencia increíble.
+        </p>
+    </div>
+
+    <div class="my-10">
+        <img src="images/mto-horizontal.png" class="max-w-fit mx-auto">
+        <Team members={mtoMembers}/>
+    </div>
+
+    <div class="my-10">
+        <img src="images/mantaro-horizontal.png" class="max-w-fit mx-auto">
+        <Team members={mantaroMembers}/>
+    </div>
+
+</Layout>

@@ -1,0 +1,23 @@
+---
+export interface Props {
+    pathImg?: string;
+    title?: string;
+    description?: string;
+}
+
+const {pathImg, title="", description} = Astro.props
+---
+
+<div class="group max-w-xs p-6 bg-white shadow-lg rounded-2xl overflow-hidden relative transition-all duration-300 ease-in-out hover:shadow-xl">
+    {pathImg && (<div class="rounded-full size-30 mx-auto mb-5">
+        <img class="size-full animate-float" src={pathImg} alt={title}/>
+    </div>)}
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold text-center">{title}</h2>
+  </div>
+  <div class="font-secondary font-thin text-center">
+    <p>{description}</p>
+  </div>
+
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</div>
