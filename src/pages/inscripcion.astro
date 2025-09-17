@@ -64,7 +64,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
                 name="teamName"
                 maxlength="100"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary bg-gray-50 hover:bg-white"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary bg-gray-50 hover:bg-white"
                 placeholder="Ingresa el nombre de tu equipo"
               />
               <p class="text-xs text-gray-500 mt-1 font-secondary">
@@ -86,7 +86,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
                 rows="4"
                 maxlength="200"
                 required
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary bg-gray-50 hover:bg-white resize-none"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary bg-gray-50 hover:bg-white resize-none"
                 placeholder="Describe brevemente a tu equipo, sus fortalezas y objetivos"
               ></textarea>
               <p class="text-xs text-gray-500 mt-1 font-secondary">
@@ -220,7 +220,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
         "member-card bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300";
       div.innerHTML = `
         <div class="flex items-center justify-between mb-4">
-          <h4 class="text-lg font-bold font-primary text-gray-800">Miembro ${index}</h4>
+          <h4 class="text-lg font-bold font-primary text-gray-800">${index == 1 ? "Líder de equipo" : `Miembro ${index}`}</h4>
           <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
             <span class="text-white font-bold text-sm">${index}</span>
           </div>
@@ -235,7 +235,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               type="text" 
               name="member${index}Name" 
               required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="Nombres"
             />
           </div>
@@ -248,7 +248,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               type="text" 
               name="member${index}LastName" 
               required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="Apellidos"
             />
           </div>
@@ -263,7 +263,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               required
               pattern="[0-9]{8}"
               maxlength="8"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="12345678"
             />
           </div>
@@ -276,7 +276,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               type="text" 
               name="member${index}UtpCode" 
               required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="U20231234"
             />
           </div>
@@ -291,7 +291,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               required
               pattern="[0-9]{9}"
               maxlength="9"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="987654321"
             />
           </div>
@@ -304,7 +304,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               type="email" 
               name="member${index}Email" 
               required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="correo@ejemplo.com"
             />
           </div>
@@ -317,7 +317,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
               type="text" 
               name="member${index}Career" 
               required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary text-sm"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent  focus:outline-0 transition-all duration-300 font-secondary text-sm"
               placeholder="Ingeniería de Sistemas"
             />
           </div>
