@@ -1,18 +1,16 @@
 ---
 import MainButton from "./MainButton.astro";
 
-export interface Props {
-    
-}
+export interface Props {}
 
 const {} = Astro.props;
 ---
 
 <div class="relative h-40 w-full flex justify-center items-center">
-    <div class="absolute top-0 left-0 right-0 bottom-0 backdrop-blur-lg z-10 flex justify-center items-center">
-        <p class="font-primary font-bold text-lg text-center px-4">Las inscripciones se abrirán el 17 de septiembre</p>
-    </div>
-    <div class="relative z-0 p-4">
-        <MainButton name="Inscríbete Ahora"/>
-    </div>
+  <a
+    href="/inscripcion"
+    class="px-12 py-4 bg-gradient-to-r from-primary via-secondary to-primary text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 font-primary text-lg animate-gradient bg-[length:200%_200%]"
+  >
+    Inscríbete ahora
+  </a>
 </div>
