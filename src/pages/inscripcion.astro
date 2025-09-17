@@ -1,74 +1,96 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Title from '../components/Title.astro';
-import Logo from '../components/Logo.astro';
+import Layout from "../layouts/Layout.astro";
+import Title from "../components/Title.astro";
+import Logo from "../components/Logo.astro";
 ---
 
 <Layout title="Inscripción - MTO Hackathon 2025">
-  <Logo/>
-  
+  <Logo />
+
   <div class="my-10 text-center">
-    <Title content='Inscripción'/>
-    
+    <Title content="Inscripción" />
+
     <p class="mt-5 md:px-24 font-secondary font-thin text-md md:text-lg">
-      Registra tu equipo para participar en el MTO Hackathon 2025.
+      Registra tu equipo para participar en la Hackathon 2025.
     </p>
-    
-    <p class="mt-2 md:px-24 font-secondary font-thin text-sm md:text-md text-gray-600">
+
+    <p
+      class="mt-2 md:px-24 font-secondary font-thin text-sm md:text-md text-gray-600"
+    >
       Los equipos deben estar formados por 4 a 6 integrantes.
     </p>
   </div>
 
   <!-- Formulario -->
   <section class="section max-w-4xl mx-auto px-4 mb-20">
-    <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+    <div
+      class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100"
+    >
       <!-- Header del formulario -->
       <div class="bg-gradient-to-r from-primary to-secondary p-6 text-white">
-        <h2 class="text-2xl font-bold font-primary mb-2">Formulario de Inscripción</h2>
-        <p class="font-secondary font-thin">Completa todos los campos requeridos</p>
+        <h2 class="text-2xl font-bold font-primary mb-2">
+          Formulario de Inscripción
+        </h2>
+        <p class="font-secondary font-thin">
+          Completa todos los campos requeridos
+        </p>
       </div>
 
       <form id="inscriptionForm" class="p-8 space-y-8">
         <!-- Información del Equipo -->
         <div class="space-y-6">
           <div class="border-l-4 border-primary pl-4">
-            <h3 class="text-xl font-bold font-primary text-gray-800 mb-2">Información del Equipo</h3>
-            <p class="font-secondary text-gray-600 text-sm">Datos generales de tu equipo</p>
+            <h3 class="text-xl font-bold font-primary text-gray-800 mb-2">
+              Información del Equipo
+            </h3>
+            <p class="font-secondary text-gray-600 text-sm">
+              Datos generales de tu equipo
+            </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Nombre del equipo -->
             <div class="md:col-span-2">
-              <label for="teamName" class="block text-sm font-medium text-gray-700 mb-2 font-primary">
+              <label
+                for="teamName"
+                class="block text-sm font-medium text-gray-700 mb-2 font-primary"
+              >
                 Nombre del Equipo <span class="text-red-500">*</span>
               </label>
-              <input 
-                type="text" 
-                id="teamName" 
-                name="teamName" 
+              <input
+                type="text"
+                id="teamName"
+                name="teamName"
                 maxlength="100"
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary bg-gray-50 hover:bg-white"
                 placeholder="Ingresa el nombre de tu equipo"
               />
-              <p class="text-xs text-gray-500 mt-1 font-secondary">Máximo 100 caracteres</p>
+              <p class="text-xs text-gray-500 mt-1 font-secondary">
+                Máximo 100 caracteres
+              </p>
             </div>
 
             <!-- Descripción del equipo -->
             <div class="md:col-span-2">
-              <label for="teamDescription" class="block text-sm font-medium text-gray-700 mb-2 font-primary">
+              <label
+                for="teamDescription"
+                class="block text-sm font-medium text-gray-700 mb-2 font-primary"
+              >
                 Descripción del Equipo <span class="text-red-500">*</span>
               </label>
-              <textarea 
-                id="teamDescription" 
-                name="teamDescription" 
-                rows="4" 
+              <textarea
+                id="teamDescription"
+                name="teamDescription"
+                rows="4"
                 maxlength="200"
                 required
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 font-secondary bg-gray-50 hover:bg-white resize-none"
                 placeholder="Describe brevemente a tu equipo, sus fortalezas y objetivos"
               ></textarea>
-              <p class="text-xs text-gray-500 mt-1 font-secondary">Máximo 200 caracteres</p>
+              <p class="text-xs text-gray-500 mt-1 font-secondary">
+                Máximo 200 caracteres
+              </p>
             </div>
           </div>
         </div>
@@ -76,8 +98,12 @@ import Logo from '../components/Logo.astro';
         <!-- Miembros del Equipo -->
         <div class="space-y-6">
           <div class="border-l-4 border-secondary pl-4">
-            <h3 class="text-xl font-bold font-primary text-gray-800 mb-2">Miembros del Equipo</h3>
-            <p class="font-secondary text-gray-600 text-sm">Agrega entre 4 y 6 miembros</p>
+            <h3 class="text-xl font-bold font-primary text-gray-800 mb-2">
+              Miembros del Equipo
+            </h3>
+            <p class="font-secondary text-gray-600 text-sm">
+              Agrega entre 4 y 6 miembros
+            </p>
           </div>
 
           <div id="membersContainer" class="space-y-6">
@@ -85,15 +111,15 @@ import Logo from '../components/Logo.astro';
           </div>
 
           <div class="flex flex-wrap gap-3 justify-center">
-            <button 
-              type="button" 
+            <button
+              type="button"
               id="addMemberBtn"
               class="px-6 py-3 bg-gradient-to-r from-secondary to-primary text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-primary"
             >
               + Agregar Miembro
             </button>
-            <button 
-              type="button" 
+            <button
+              type="button"
               id="removeMemberBtn"
               class="px-6 py-3 bg-gradient-to-r from-gray-400 to-gray-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 font-primary"
             >
@@ -103,7 +129,10 @@ import Logo from '../components/Logo.astro';
 
           <div class="text-center">
             <p id="memberCount" class="font-secondary text-sm text-gray-600">
-              Miembros actuales: <span id="currentCount" class="font-bold text-primary">0</span>/6
+              Miembros actuales: <span
+                id="currentCount"
+                class="font-bold text-primary">0</span
+              >/6
             </p>
           </div>
         </div>
@@ -111,7 +140,7 @@ import Logo from '../components/Logo.astro';
         <!-- Botón de envío -->
         <div class="pt-6 border-t border-gray-200">
           <div class="text-center">
-            <button 
+            <button
               type="submit"
               class="px-12 py-4 bg-gradient-to-r from-primary via-secondary to-primary text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 font-primary text-lg animate-gradient bg-[length:200%_200%]"
             >
@@ -123,7 +152,11 @@ import Logo from '../components/Logo.astro';
     </div>
 
     <!-- Mensaje de estado -->
-    <div id="statusMessage" class="hidden mt-6 p-4 rounded-lg text-center font-secondary"></div>
+    <div
+      id="statusMessage"
+      class="hidden mt-6 p-4 rounded-lg text-center font-secondary"
+    >
+    </div>
   </section>
 </Layout>
 
@@ -133,13 +166,13 @@ import Logo from '../components/Logo.astro';
       this.memberCount = 0;
       this.maxMembers = 6;
       this.minMembers = 4;
-      this.form = document.getElementById('inscriptionForm');
-      this.membersContainer = document.getElementById('membersContainer');
-      this.addMemberBtn = document.getElementById('addMemberBtn');
-      this.removeMemberBtn = document.getElementById('removeMemberBtn');
-      this.currentCountSpan = document.getElementById('currentCount');
-      this.statusMessage = document.getElementById('statusMessage');
-      
+      this.form = document.getElementById("inscriptionForm");
+      this.membersContainer = document.getElementById("membersContainer");
+      this.addMemberBtn = document.getElementById("addMemberBtn");
+      this.removeMemberBtn = document.getElementById("removeMemberBtn");
+      this.currentCountSpan = document.getElementById("currentCount");
+      this.statusMessage = document.getElementById("statusMessage");
+
       this.init();
     }
 
@@ -148,17 +181,17 @@ import Logo from '../components/Logo.astro';
       for (let i = 0; i < 4; i++) {
         this.addMember();
       }
-      
-      this.addMemberBtn.addEventListener('click', () => this.addMember());
-      this.removeMemberBtn.addEventListener('click', () => this.removeMember());
-      this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-      
+
+      this.addMemberBtn.addEventListener("click", () => this.addMember());
+      this.removeMemberBtn.addEventListener("click", () => this.removeMember());
+      this.form.addEventListener("submit", (e) => this.handleSubmit(e));
+
       this.updateUI();
     }
 
     addMember() {
       if (this.memberCount >= this.maxMembers) return;
-      
+
       this.memberCount++;
       const memberDiv = this.createMemberHTML(this.memberCount);
       this.membersContainer.appendChild(memberDiv);
@@ -167,7 +200,7 @@ import Logo from '../components/Logo.astro';
 
     removeMember() {
       if (this.memberCount <= this.minMembers) return;
-      
+
       const lastMember = this.membersContainer.lastElementChild;
       if (lastMember) {
         lastMember.remove();
@@ -177,8 +210,9 @@ import Logo from '../components/Logo.astro';
     }
 
     createMemberHTML(index) {
-      const div = document.createElement('div');
-      div.className = 'member-card bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300';
+      const div = document.createElement("div");
+      div.className =
+        "member-card bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-300";
       div.innerHTML = `
         <div class="flex items-center justify-between mb-4">
           <h4 class="text-lg font-bold font-primary text-gray-800">Miembro ${index}</h4>
@@ -289,105 +323,120 @@ import Logo from '../components/Logo.astro';
 
     updateUI() {
       this.currentCountSpan.textContent = this.memberCount;
-      
+
       // Actualizar botones
       this.addMemberBtn.disabled = this.memberCount >= this.maxMembers;
       this.removeMemberBtn.disabled = this.memberCount <= this.minMembers;
-      
+
       if (this.memberCount >= this.maxMembers) {
-        this.addMemberBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        this.addMemberBtn.classList.add("opacity-50", "cursor-not-allowed");
       } else {
-        this.addMemberBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        this.addMemberBtn.classList.remove("opacity-50", "cursor-not-allowed");
       }
-      
+
       if (this.memberCount <= this.minMembers) {
-        this.removeMemberBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        this.removeMemberBtn.classList.add("opacity-50", "cursor-not-allowed");
       } else {
-        this.removeMemberBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        this.removeMemberBtn.classList.remove(
+          "opacity-50",
+          "cursor-not-allowed"
+        );
       }
     }
 
     showMessage(message, type) {
-      if (!type) type = 'success';
+      if (!type) type = "success";
       this.statusMessage.textContent = message;
       this.statusMessage.className = `mt-6 p-4 rounded-lg text-center font-secondary ${
-        type === 'success' 
-          ? 'bg-green-100 text-green-800 border border-green-300' 
-          : 'bg-red-100 text-red-800 border border-red-300'
+        type === "success"
+          ? "bg-green-100 text-green-800 border border-green-300"
+          : "bg-red-100 text-red-800 border border-red-300"
       }`;
-      this.statusMessage.classList.remove('hidden');
-      
-      // Auto-hide después de 5 segundos
-      setTimeout(() => {
-        this.statusMessage.classList.add('hidden');
-      }, 5000);
+      this.statusMessage.classList.remove("hidden");
+
+      // Auto-hide después de 5 segundos si no es éxitoso
+      if (type !== "success")
+        setTimeout(() => {
+          this.statusMessage.classList.add("hidden");
+        }, 5000);
     }
 
     async handleSubmit(e) {
       e.preventDefault();
-      
+
       try {
         // Recopilar datos del formulario
         const formData = new FormData(this.form);
-        
+
         // Crear objeto con la estructura requerida
         const inscriptionData = {
           team: {
-            name: formData.get('teamName') || '',
+            name: formData.get("teamName") || "",
             amount: this.memberCount,
-            description: formData.get('teamDescription') || ''
+            description: formData.get("teamDescription") || "",
           },
-          members: []
+          members: [],
         };
-        
+
         // Agregar miembros
         for (let i = 1; i <= this.memberCount; i++) {
           inscriptionData.members.push({
-            name: formData.get(`member${i}Name`) || '',
-            last_name: formData.get(`member${i}LastName`) || '',
-            dni: formData.get(`member${i}Dni`) || '',
-            utp_code: formData.get(`member${i}UtpCode`) || '',
-            phone: formData.get(`member${i}Phone`) || '',
-            email: formData.get(`member${i}Email`) || '',
-            degree: formData.get(`member${i}Career`) || ''
+            name: formData.get(`member${i}Name`) || "",
+            last_name: formData.get(`member${i}LastName`) || "",
+            dni: formData.get(`member${i}Dni`) || "",
+            utp_code: formData.get(`member${i}UtpCode`) || "",
+            phone: formData.get(`member${i}Phone`) || "",
+            email: formData.get(`member${i}Email`) || "",
+            degree: formData.get(`member${i}Career`) || "",
           });
         }
-        
+
         // Mostrar datos en consola para debug
-        console.log('Datos de inscripción:', JSON.stringify(inscriptionData, null, 2));
-        
+        console.log(
+          "Datos de inscripción:",
+          JSON.stringify(inscriptionData, null, 2)
+        );
+
         // Enviar datos al endpoint
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(inscriptionData)
+        const response = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inscriptionData),
         });
-        
+
         const result = await response.json();
-        
+
         if (response.ok) {
-          this.showMessage(`¡Inscripción enviada exitosamente! Equipo "${result.teamName}" registrado.`, 'success');
+          this.showMessage(
+            `¡Inscripción enviada exitosamente! Equipo "${result.teamName}" registrado.`,
+            "success"
+          );
           // Resetear formulario
           this.form.reset();
           this.memberCount = 0;
-          this.membersContainer.innerHTML = '';
+          this.membersContainer.innerHTML = "";
           // Volver a agregar 4 miembros por defecto
           for (let i = 0; i < 4; i++) {
             this.addMember();
           }
         } else {
-          this.showMessage(result.error || 'Error al enviar la inscripción.', 'error');
+          this.showMessage(
+            result.error || "Error al enviar la inscripción.",
+            "error"
+          );
         }
-        
       } catch (error) {
-        console.error('Error al enviar inscripción:', error);
-        this.showMessage('Error al enviar la inscripción. Por favor, inténtalo de nuevo.', 'error');
+        console.error("Error al enviar inscripción:", error);
+        this.showMessage(
+          "Error al enviar la inscripción. Por favor, inténtalo de nuevo.",
+          "error"
+        );
       }
     }
   }
 
   // Inicializar el formulario cuando el DOM esté listo
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     new InscriptionForm();
   });
 </script>
@@ -398,24 +447,30 @@ import Logo from '../components/Logo.astro';
     background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
     transition: all 0.3s ease;
   }
-  
+
   .member-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   }
-  
-  input:focus, textarea:focus {
+
+  input:focus,
+  textarea:focus {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(228, 20, 118, 0.15);
   }
-  
+
   .animate-gradient {
     background-size: 200% 200%;
     animation: gradient-shift 4s ease-in-out infinite;
   }
-  
+
   @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 </style>

@@ -1,120 +1,134 @@
 import { createClient } from "@libsql/client";
+import { z } from "astro/zod";
 import type { APIRoute } from "astro";
 
-interface TeamData {
-  name: string;
-  amount: number;
-  description: string;
-}
+// Schemas de validación con Zod
+const TeamSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "El nombre del equipo es requerido" })
+    .max(100, {
+      message: "El nombre del equipo no puede exceder 100 caracteres",
+    }),
+  amount: z.coerce
+    .number()
+    .int({ message: "La cantidad de miembros debe ser un número entero" })
+    .min(4, { message: "El equipo debe tener entre 4 y 6 miembros" })
+    .max(6, { message: "El equipo debe tener entre 4 y 6 miembros" }),
+  description: z
+    .string()
+    .trim()
+    .min(1, { message: "La descripción del equipo es requerida" })
+    .max(200, {
+      message: "La descripción del equipo no puede exceder 200 caracteres",
+    }),
+});
 
-interface MemberData {
-  name: string;
-  last_name: string;
-  dni: string;
-  utp_code: string;
-  phone: string;
-  email: string;
-  degree: string;
-}
+const MemberSchema = z.object({
+  name: z.string().trim().min(1, { message: "Nombre requerido" }),
+  last_name: z.string().trim().min(1, { message: "Apellido requerido" }),
+  dni: z
+    .string()
+    .trim()
+    .regex(/^\d{8}$/, { message: "DNI inválido. Debe tener 8 dígitos" }),
+  utp_code: z
+    .string()
+    .trim()
+    .regex(/^U\d{8}$/, {
+      message: "Código UTP inválido. Formato: U12345678",
+    }),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^\d{9}$/, { message: "Teléfono inválido. Debe tener 9 dígitos" }),
+  email: z.string().trim().email({ message: "Email inválido" }),
+  degree: z.string().trim().min(1, { message: "Carrera requerida" }),
+});
 
-interface RegistrationData {
-  team: TeamData;
-  members: MemberData[];
-}
+const RegistrationSchema = z
+  .object({
+    team: TeamSchema,
+    members: z
+      .array(MemberSchema)
+      .min(4, { message: "El equipo debe tener entre 4 y 6 miembros" })
+      .max(6, { message: "El equipo debe tener entre 4 y 6 miembros" }),
+  })
+  .superRefine((data, ctx) => {
+    // Validación cruzada: cantidad declarada vs. miembros enviados
+    if (data.members.length !== data.team.amount) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["members"],
+        message:
+          "El número de miembros no coincide con la cantidad especificada",
+      });
+    }
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  const turso = createClient({
-    url: locals.runtime.env.TURSO_DATABASE_URL,
-    authToken: locals.runtime.env.TURSO_AUTH_TOKEN,
+    // Evitar duplicados dentro del mismo equipo
+    const dniSet = new Set<string>();
+    const emailSet = new Set<string>();
+    data.members.forEach((m, idx) => {
+      if (dniSet.has(m.dni)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", idx, "dni"],
+          message: "DNI duplicado dentro del equipo",
+        });
+      } else {
+        dniSet.add(m.dni);
+      }
+
+      if (emailSet.has(m.email)) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", idx, "email"],
+          message: "Email duplicado dentro del equipo",
+        });
+      } else {
+        emailSet.add(m.email);
+      }
+    });
   });
 
+export const POST: APIRoute = async ({ request, locals }) => {
+  let turso;
   try {
-    const data = request.body
-      ? ((await request.json()) as RegistrationData)
-      : null;
+    turso = createClient({
+      url: locals.runtime.env.TURSO_DATABASE_URL,
+      authToken: locals.runtime.env.TURSO_AUTH_TOKEN,
+    });
+  } catch (e) {
+    console.error("Error al conectar con la base de datos:", e);
+    return new Response(JSON.stringify({ error: "Error interno" }), {
+      status: 500,
+    });
+  }
 
-    // Validar que los datos existan
-    if (!data || !data.team || !data.members) {
+  try {
+    // Parseo seguro del JSON
+    const json = await request.json().catch(() => null);
+    if (!json) {
+      return new Response(JSON.stringify({ error: "JSON inválido o vacío" }), {
+        status: 400,
+      });
+    }
+
+    // Validación con Zod
+    const parsed = RegistrationSchema.safeParse(json);
+    if (!parsed.success) {
+      const { fieldErrors, formErrors } = parsed.error.flatten();
       return new Response(
-        JSON.stringify({ error: "Datos incompletos" }),
+        JSON.stringify({
+          error: "Validación fallida",
+          fieldErrors,
+          formErrors,
+        }),
         { status: 400 }
       );
     }
 
-    // Validar equipo
-    const { team, members } = data;
-    
-    if (!team.name || !team.description || !team.amount) {
-      return new Response(
-        JSON.stringify({ error: "Datos del equipo incompletos" }),
-        { status: 400 }
-      );
-    }
-
-    if (team.name.length > 100) {
-      return new Response(
-        JSON.stringify({ error: "El nombre del equipo no puede exceder 100 caracteres" }),
-        { status: 400 }
-      );
-    }
-
-    if (team.description.length > 200) {
-      return new Response(
-        JSON.stringify({ error: "La descripción del equipo no puede exceder 200 caracteres" }),
-        { status: 400 }
-      );
-    }
-
-    if (team.amount < 4 || team.amount > 6) {
-      return new Response(
-        JSON.stringify({ error: "El equipo debe tener entre 4 y 6 miembros" }),
-        { status: 400 }
-      );
-    }
-
-    if (members.length !== team.amount) {
-      return new Response(
-        JSON.stringify({ error: "El número de miembros no coincide con la cantidad especificada" }),
-        { status: 400 }
-      );
-    }
-
-    // Validar miembros
-    for (let i = 0; i < members.length; i++) {
-      const member = members[i];
-      
-      if (!member.name || !member.last_name || !member.dni || !member.utp_code || 
-          !member.phone || !member.email || !member.degree) {
-        return new Response(
-          JSON.stringify({ error: `Datos incompletos para el miembro ${i + 1}` }),
-          { status: 400 }
-        );
-      }
-
-      // Validar formato de DNI
-      if (!/^[0-9]{8}$/.test(member.dni)) {
-        return new Response(
-          JSON.stringify({ error: `DNI inválido para el miembro ${i + 1}. Debe tener 8 dígitos` }),
-          { status: 400 }
-        );
-      }
-
-      // Validar formato de teléfono
-      if (!/^[0-9]{9}$/.test(member.phone)) {
-        return new Response(
-          JSON.stringify({ error: `Teléfono inválido para el miembro ${i + 1}. Debe tener 9 dígitos` }),
-          { status: 400 }
-        );
-      }
-
-      // Validar formato de email
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(member.email)) {
-        return new Response(
-          JSON.stringify({ error: `Email inválido para el miembro ${i + 1}` }),
-          { status: 400 }
-        );
-      }
-    }
+    const { team, members } = parsed.data;
 
     // Verificar si ya existe un equipo con el mismo nombre
     const existingTeam = await turso.execute(
@@ -124,7 +138,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     if (existingTeam.rows.length > 0) {
       return new Response(
-        JSON.stringify({ error: "Ya existe un equipo registrado con ese nombre" }),
+        JSON.stringify({
+          error: "Ya existe un equipo registrado con ese nombre",
+        }),
         { status: 409 }
       );
     }
@@ -132,14 +148,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // Verificar si algún miembro ya está registrado (por DNI o email)
     for (const member of members) {
       const existingMember = await turso.execute(
-        "SELECT * FROM team_members WHERE dni = ? OR email = ?",
-        [member.dni, member.email]
+        "SELECT * FROM members WHERE dni = ? OR email = ? OR utp_code = ?",
+        [member.dni, member.email, member.utp_code]
       );
 
       if (existingMember.rows.length > 0) {
         return new Response(
-          JSON.stringify({ 
-            error: `El miembro con DNI ${member.dni} o email ${member.email} ya está registrado en otro equipo` 
+          JSON.stringify({
+            error: `El miembro con DNI ${member.dni}, email ${member.email} o codigo ${member.utp_code} ya está registrado en otro equipo`,
           }),
           { status: 409 }
         );
@@ -148,9 +164,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const timestamp = new Date().toISOString();
 
-    // Insertar equipo
+    // Insert team
     const teamResult = await turso.execute(
-      "INSERT INTO teams (name, amount, description, timestamp) VALUES (?, ?, ?, ?)",
+      "INSERT INTO teams (name, members_amount, description, timestamp) VALUES (?, ?, ?, ?)",
       [team.name, team.amount, team.description, timestamp]
     );
 
@@ -163,33 +179,38 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Insertar miembros
-    for (const member of members) {
-      await turso.execute(
-        "INSERT INTO team_members (team_id, name, last_name, dni, utp_code, phone, email, degree, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          teamId,
-          member.name,
-          member.last_name,
-          member.dni,
-          member.utp_code,
-          member.phone,
-          member.email,
-          member.degree,
-          timestamp
-        ]
-      );
+    // Insert members
+    try {
+      for (const member of members) {
+        await turso.execute(
+          "INSERT INTO members (team_id, name, last_name, dni, utp_code, phone, email, degree, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+          [
+            teamId,
+            member.name,
+            member.last_name,
+            member.dni,
+            member.utp_code,
+            member.phone,
+            member.email,
+            member.degree,
+            timestamp,
+          ]
+        );
+      }
+    } catch (e) {
+      // Delete the team if member insertion fails
+      await turso.execute("DELETE FROM teams WHERE id = ?", [teamId]);
+      throw e;
     }
 
     return new Response(
       JSON.stringify({
         message: "Equipo registrado exitosamente",
-        teamId: teamId,
-        teamName: team.name
+        teamId,
+        teamName: team.name,
       }),
       { status: 201 }
     );
-
   } catch (error) {
     console.error("Error al registrar equipo:", error);
     return new Response(
