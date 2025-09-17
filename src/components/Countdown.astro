@@ -50,7 +50,7 @@ const { targetDateStr } = Astro.props;
   </div>
 </div>
 
-<script type="module">
+<script type="module" is:inline>
   const countdownElement = document.getElementById("countdown");
   const targetDate = new Date(countdownElement.dataset.targetDate).getTime();
 
