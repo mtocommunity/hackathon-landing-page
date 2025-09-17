@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Title from "../components/Title.astro";
 import Logo from "../components/Logo.astro";
+import TurnstileWidget from "../components/TurnstileWidget.tsx";
 ---
 
 <Layout title="Inscripción - MTO Hackathon 2025">
@@ -135,6 +136,10 @@ import Logo from "../components/Logo.astro";
               >/6
             </p>
           </div>
+        </div>
+
+        <div class="flex justify-center">
+          <TurnstileWidget client:only />
         </div>
 
         <!-- Botón de envío -->
@@ -400,7 +405,10 @@ import Logo from "../components/Logo.astro";
         // Enviar datos al endpoint
         const response = await fetch("/api/register", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("turnstileToken") || "",
+          },
           body: JSON.stringify(inscriptionData),
         });
 
