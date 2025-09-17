@@ -1,58 +1,69 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import "./font.css";
 
 @theme {
-    /* color palethe */
-    --color-primary: #E41476;
-    --color-secondary: #02C8ED;
-    --color-tertiary: #101B37;
-    --color-primary-light: #EC458D;
-    --color-secondary-light: #4BD5F1;
-    --color-tertiary-light: #37415B;
-    --color-primary-dark: #A31357;
-    --color-secondary-dark: #2094AA;
-    --color-black: #05090C;
-    --color-white: #ffffff;
+  /* color palethe */
+  --color-primary: #e41476;
+  --color-secondary: #02c8ed;
+  --color-tertiary: #101b37;
+  --color-primary-light: #ec458d;
+  --color-secondary-light: #4bd5f1;
+  --color-tertiary-light: #37415b;
+  --color-primary-dark: #a31357;
+  --color-secondary-dark: #2094aa;
+  --color-black: #05090c;
+  --color-white: #ffffff;
 
-    /* fonts */
-    --font-primary: 'Nunito Sans', Roboto;
-    --font-secondary: 'JetBrains Mono', monospace;
-    
+  /* fonts */
+  --font-primary: "Nunito Sans", Roboto;
+  --font-secondary: "JetBrains Mono", monospace;
 }
 
 /* Sistema de Animaciones Avanzadas */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-8px) rotate(1deg); }
-  66% { transform: translateY(-4px) rotate(-1deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { 
+  0%,
+  100% {
     box-shadow: var(--shadow-neumorphism), var(--glow-blue);
     transform: scale(1);
   }
-  50% { 
+  50% {
     box-shadow: var(--shadow-neumorphism), var(--glow-purple);
     transform: scale(1.02);
   }
 }
 
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes neon-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px currentColor) 
-            drop-shadow(0 0 10px currentColor) 
-            drop-shadow(0 0 15px currentColor);
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px currentColor) drop-shadow(0 0 10px currentColor)
+      drop-shadow(0 0 15px currentColor);
   }
   50% {
-    filter: drop-shadow(0 0 8px currentColor) 
-            drop-shadow(0 0 16px currentColor) 
-            drop-shadow(0 0 24px currentColor);
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 16px currentColor)
+      drop-shadow(0 0 24px currentColor);
   }
 }
 
@@ -90,18 +101,31 @@
 }
 
 @keyframes grid-move {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
 }
 
 @keyframes gradient-border-flow {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Clases de Animación */
@@ -150,7 +174,7 @@
 }
 
 .hover-glow::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -173,7 +197,7 @@
 }
 
 .hover-shimmer::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
