@@ -95,7 +95,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   let turnstileToken = request.headers.get("Authorization");
   if (!turnstileToken) {
     return new Response(
-      JSON.stringify({ error: "Token de Turnstile requerido" }),
+      JSON.stringify({ error: "No se pudo validad que no seas un robot" }),
       {
         status: 400,
       }
@@ -118,10 +118,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     );
 
-    const verifyData: { success: boolean } = await verifyResponse.json();
-    if (!verifyData.success) {
+    const verifyData: any = await verifyResponse.json();
+    if (!(verifyData?.success as boolean)) {
       return new Response(
-        JSON.stringify({ error: "Validación de Turnstile fallida" }),
+        JSON.stringify({ error: "No se pudo validad que no seas un robot" }),
         {
           status: 400,
         }
