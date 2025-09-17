@@ -5,6 +5,7 @@ declare namespace App {
     otherLocals: {
       TURSO_DATABASE_URL: string;
       TURSO_AUTH_TOKEN: string;
+      CLODUFLARE_TURNSTILE_SECRET: string;
     };
   }
 }

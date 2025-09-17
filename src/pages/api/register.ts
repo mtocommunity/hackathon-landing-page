@@ -92,6 +92,48 @@ const RegistrationSchema = z
   });
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  let turnstileToken = request.headers.get("Authorization");
+  if (!turnstileToken) {
+    return new Response(
+      JSON.stringify({ error: "Token de Turnstile requerido" }),
+      {
+        status: 400,
+      }
+    );
+  }
+
+  // Verificar el token de Turnstile
+  try {
+    const verifyResponse = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          secret: locals.runtime.env.CLODUFLARE_TURNSTILE_SECRET,
+          response: turnstileToken,
+        }),
+      }
+    );
+
+    const verifyData: { success: boolean } = await verifyResponse.json();
+    if (!verifyData.success) {
+      return new Response(
+        JSON.stringify({ error: "Validación de Turnstile fallida" }),
+        {
+          status: 400,
+        }
+      );
+    }
+  } catch (e) {
+    console.error("Error al verificar Turnstile:", e);
+    return new Response(JSON.stringify({ error: "Error interno" }), {
+      status: 500,
+    });
+  }
+
   let turso;
   try {
     turso = createClient({
