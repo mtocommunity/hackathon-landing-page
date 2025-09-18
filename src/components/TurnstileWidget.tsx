@@ -11,12 +11,10 @@ function TurnstileWidget() {
 
   useEffect(() => {
     const handler = (event: Event) => {
-      console.log("Storage event:", event);
       if (turnstileRef.current) {
         turnstileRef.current.reset();
       }
     };
-    console.log("Setting up storage event listener");
 
     window.addEventListener("turnstileReset", handler);
     return () => window.removeEventListener("turnstileReset", handler);
