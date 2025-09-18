@@ -1,19 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Turnstile, { useTurnstile } from "react-turnstile";
 
 function TurnstileWidget() {
   const turnstile = useTurnstile();
+  const turnstileRef = useRef(turnstile);
 
   useEffect(() => {
-    // Limpia el token almacenado cuando el componente se monta
-    localStorage.removeItem("turnstileToken");
+    turnstileRef.current = turnstile;
+  }, [turnstile]);
 
-    const interval = setInterval(() => {
-      if (turnstile) {
-        turnstile.reset();
+  useEffect(() => {
+    const handler = (event: Event) => {
+      console.log("Storage event:", event);
+      if (turnstileRef.current) {
+        turnstileRef.current.reset();
       }
-    }, 1000);
-    return () => clearInterval(interval);
+    };
+    console.log("Setting up storage event listener");
+
+    window.addEventListener("turnstileReset", handler);
+    return () => window.removeEventListener("turnstileReset", handler);
   }, []);
 
   return (
