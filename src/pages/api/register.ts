@@ -95,7 +95,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   let turnstileToken = request.headers.get("Authorization");
   if (!turnstileToken) {
     return new Response(
-      JSON.stringify({ error: "No se pudo validad que no seas un robot" }),
+      JSON.stringify({ error: "Debes validar que no eres un robot" }),
       {
         status: 400,
       }
@@ -162,7 +162,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const { fieldErrors, formErrors } = parsed.error.flatten();
       return new Response(
         JSON.stringify({
-          error: "Validación fallida",
+          error: "Alguno de los datos proporcionados es inválido",
           fieldErrors,
           formErrors,
         }),
