@@ -1,0 +1,115 @@
+import AWS from "aws-sdk";
+
+export async function sendRegisterEmail({
+  AWS_REGION,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  data,
+  ttl = 3,
+}: {
+  AWS_REGION: string;
+  AWS_ACCESS_KEY_ID: string;
+  AWS_SECRET_ACCESS_KEY: string;
+  data: {
+    teamName: string;
+    members: {
+      name: string;
+      email: string;
+    }[];
+  };
+  ttl?: number;
+}) {
+  if (ttl <= 0) {
+    console.error("Max retries reached. Could not send email.");
+    return;
+  }
+
+  const ses = new AWS.SES({
+    region: AWS_REGION,
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  });
+
+  for (const member of data.members) {
+    ses.sendEmail(
+      {
+        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
+        Destination: {
+          ToAddresses: [member.email],
+        },
+        Message: {
+          Subject: {
+            Data: "Bienvenido al Hackathon 2025",
+            Charset: "UTF-8",
+          },
+          Body: {
+            Html: {
+              Data: `
+<html>
+  <body
+    style="
+      font-family: monospace;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 1rem;
+    "
+  >
+    <div style="font-weight: bold; font-size: large">Bienvenid@ a la</div>
+    <div style="font-weight: bold; font-size: xx-large">Hackathon 2025</div>
+    <br />
+    <div
+      style="
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: linear-gradient(to right, #02c8ed, #101b37, #e41476);
+      "
+    ></div>
+    <br />
+    <p>Hola, {{user}}</p>
+    <p>
+      Con este correo confirmamos tu registro,<br />
+      en el equipo: {{team}}<br />
+      <br />
+      Gracias por registrarte en la Hackathon 2025.<br />
+      Estamos emocionados de tenerte con nosotros.<br />
+      Pronto recibirás más información sobre el evento.<br />
+    </p>
+    <br />
+    <span style="font-weight: lighter; font-size: small"
+      >Este es un correo automático, no es necesario que respondas.</span
+    >
+    <p style="color: #02c8ed">Contáctanos: contact@mtocommunity.com</p>
+    <p style="color: #02c8ed">MTO Community x Mantaro</p>
+  </body>
+</html>
+            `
+                .replace("{{team}}", data.teamName)
+                .replace("{{user}}", member.name),
+              Charset: "UTF-8",
+            },
+          },
+        },
+      },
+      (err, dataEmail) => {
+        if (err) {
+          // Retry
+          setTimeout(() => {
+            sendRegisterEmail({
+              AWS_REGION,
+              AWS_ACCESS_KEY_ID,
+              AWS_SECRET_ACCESS_KEY,
+              data: {
+                teamName: data.teamName,
+                members: [member],
+              },
+              ttl: ttl - 1,
+            });
+          }, 30 * 1000);
+          console.error("Error sending email:", err);
+        }
+      }
+    );
+  }
+}

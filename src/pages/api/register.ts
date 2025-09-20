@@ -1,6 +1,7 @@
 import { createClient } from "@libsql/client";
 import { z } from "astro/zod";
 import type { APIRoute } from "astro";
+import { sendRegisterEmail } from "../../core/email-sender";
 
 // Schemas de validación con Zod
 const TeamSchema = z.object({
@@ -244,6 +245,21 @@ export const POST: APIRoute = async ({ request, locals }) => {
       await turso.execute("DELETE FROM teams WHERE id = ?", [teamId]);
       throw e;
     }
+
+    sendRegisterEmail({
+      AWS_REGION: locals.runtime.env.AWS_REGION,
+      AWS_ACCESS_KEY_ID: locals.runtime.env.AWS_ACCESS_KEY_ID,
+      AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY,
+      data: {
+        teamName: team.name,
+        members: members.map((x) => {
+          return {
+            name: `${x.name} ${x.last_name}`,
+            email: x.email,
+          };
+        }),
+      },
+    });
 
     return new Response(
       JSON.stringify({
