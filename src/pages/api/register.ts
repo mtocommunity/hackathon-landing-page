@@ -251,8 +251,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
         AWS_ACCESS_KEY_ID:
           (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
-        AWS_SECRET_ACCESS_KEY:
-          (locals.runtime.env.AWS_SECRET_ACCESS_KEY as string) ?? "",
+        AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY ?? "",
         data: {
           teamName: team.name,
           members: members.map((x) => {
