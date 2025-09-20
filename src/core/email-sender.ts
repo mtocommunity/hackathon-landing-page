@@ -96,6 +96,9 @@ export async function sendRegisterEmail({
           },
         })
       )
+      .then(() => {
+        console.log(`Email sent to ${member.email}`);
+      })
       .catch((err) => {
         setTimeout(() => {
           sendRegisterEmail({
