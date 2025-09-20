@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.6.6",
     "@astrojs/react": "^4.3.1",
+    "@aws-sdk/client-ses": "^3.893.0",
     "@libsql/client": "^0.15.14",
     "@tailwindcss/vite": "^4.1.13",
     "@types/react-dom": "^19.1.9",
@@ -24,6 +25,7 @@
     "typescript": "^5.9.2"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^0.0.42",
     "@types/react": "^19.1.13"
   }
 }
