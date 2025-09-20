@@ -1,7 +1,7 @@
 import { createClient } from "@libsql/client";
 import { z } from "astro/zod";
 import type { APIRoute } from "astro";
-import { sendRegisterEmail } from "../../core/email-sender";
+// import { sendRegisterEmail } from "../../core/email-sender";
 
 // Schemas de validación con Zod
 const TeamSchema = z.object({
@@ -246,31 +246,31 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw e;
     }
 
-    try {
-      sendRegisterEmail({
-        AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
-        AWS_ACCESS_KEY_ID:
-          (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
-        AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY ?? "",
-        data: {
-          teamName: team.name,
-          members: members.map((x) => {
-            return {
-              name: `${x.name} ${x.last_name}`,
-              email: x.email,
-            };
-          }),
-        },
-      });
-    } catch (e) {
-      console.error("Error al enviar emails de registro:", e);
-      return new Response(
-        JSON.stringify({
-          error: "Error al enviar los correos de confirmación",
-        }),
-        { status: 500 }
-      );
-    }
+    // try {
+    //   sendRegisterEmail({
+    //     AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
+    //     AWS_ACCESS_KEY_ID:
+    //       (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
+    //     AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY ?? "",
+    //     data: {
+    //       teamName: team.name,
+    //       members: members.map((x) => {
+    //         return {
+    //           name: `${x.name} ${x.last_name}`,
+    //           email: x.email,
+    //         };
+    //       }),
+    //     },
+    //   });
+    // } catch (e) {
+    //   console.error("Error al enviar emails de registro:", e);
+    //   return new Response(
+    //     JSON.stringify({
+    //       error: "Error al enviar los correos de confirmación",
+    //     }),
+    //     { status: 500 }
+    //   );
+    // }
 
     return new Response(
       JSON.stringify({
