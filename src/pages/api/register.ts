@@ -247,9 +247,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     sendRegisterEmail({
-      AWS_REGION: locals.runtime.env.AWS_REGION,
-      AWS_ACCESS_KEY_ID: locals.runtime.env.AWS_ACCESS_KEY_ID,
-      AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY,
+      AWS_REGION: locals.runtime.env.AWS_REGION || "",
+      AWS_ACCESS_KEY_ID: locals.runtime.env.AWS_ACCESS_KEY_ID || "",
+      AWS_SECRET_ACCESS_KEY: locals.runtime.env.AWS_SECRET_ACCESS_KEY || "",
       data: {
         teamName: team.name,
         members: members.map((x) => {
