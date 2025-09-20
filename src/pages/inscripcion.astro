@@ -270,7 +270,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
           
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1 font-primary">
-              Código UTP <span class="text-red-500">*</span>
+              Código UTP (sin @utp.edu.pe) <span class="text-red-500">*</span>
             </label>
             <input 
               type="text" 
@@ -389,7 +389,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
             name: formData.get(`member${i}Name`) || "",
             last_name: formData.get(`member${i}LastName`) || "",
             dni: formData.get(`member${i}Dni`) || "",
-            utp_code: formData.get(`member${i}UtpCode`) || "",
+            utp_code: (formData.get(`member${i}UtpCode`) || "").toUpperCase(),
             phone: formData.get(`member${i}Phone`) || "",
             email: formData.get(`member${i}Email`) || "",
             degree: formData.get(`member${i}Career`) || "",
