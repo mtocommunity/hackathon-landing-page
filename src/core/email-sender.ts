@@ -32,7 +32,10 @@ export async function sendRegisterEmail({
     },
   });
 
+  console.log("Sending email to:", data.members.map((x) => x.email).join(", "));
+
   for (const member of data.members) {
+    console.log("Preparing email for:", member.email);
     ses
       .send(
         new SendEmailCommand({
@@ -100,6 +103,7 @@ export async function sendRegisterEmail({
         console.log(`Email sent to ${member.email}`);
       })
       .catch((err) => {
+        console.error(`Error sending email to ${member.email}:`, err);
         setTimeout(() => {
           sendRegisterEmail({
             AWS_REGION,
