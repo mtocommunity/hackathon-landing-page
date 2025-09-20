@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 export async function sendRegisterEmail({
   AWS_REGION,
@@ -24,27 +24,30 @@ export async function sendRegisterEmail({
     return;
   }
 
-  const ses = new AWS.SES({
+  const ses = new SESClient({
     region: AWS_REGION,
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    credentials: {
+      accessKeyId: AWS_ACCESS_KEY_ID,
+      secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    },
   });
 
   for (const member of data.members) {
-    ses.sendEmail(
-      {
-        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
-        Destination: {
-          ToAddresses: [member.email],
-        },
-        Message: {
-          Subject: {
-            Data: "Bienvenido al Hackathon 2025",
-            Charset: "UTF-8",
+    ses
+      .send(
+        new SendEmailCommand({
+          Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
+          Destination: {
+            ToAddresses: [member.email],
           },
-          Body: {
-            Html: {
-              Data: `
+          Message: {
+            Subject: {
+              Data: "Bienvenido al Hackathon 2025",
+              Charset: "UTF-8",
+            },
+            Body: {
+              Html: {
+                Data: `
 <html>
   <body
     style="
@@ -85,31 +88,28 @@ export async function sendRegisterEmail({
   </body>
 </html>
             `
-                .replace("{{team}}", data.teamName)
-                .replace("{{user}}", member.name),
-              Charset: "UTF-8",
+                  .replace("{{team}}", data.teamName)
+                  .replace("{{user}}", member.name),
+                Charset: "UTF-8",
+              },
             },
           },
-        },
-      },
-      (err, dataEmail) => {
-        if (err) {
-          // Retry
-          setTimeout(() => {
-            sendRegisterEmail({
-              AWS_REGION,
-              AWS_ACCESS_KEY_ID,
-              AWS_SECRET_ACCESS_KEY,
-              data: {
-                teamName: data.teamName,
-                members: [member],
-              },
-              ttl: ttl - 1,
-            });
-          }, 30 * 1000);
-          console.error("Error sending email:", err);
-        }
-      }
-    );
+        })
+      )
+      .catch((err) => {
+        setTimeout(() => {
+          sendRegisterEmail({
+            AWS_REGION,
+            AWS_ACCESS_KEY_ID,
+            AWS_SECRET_ACCESS_KEY,
+            data: {
+              teamName: data.teamName,
+              members: [member],
+            },
+            ttl: ttl - 1,
+          });
+        }, 30 * 1000);
+        console.error("Error sending email:", err);
+      });
   }
 }
