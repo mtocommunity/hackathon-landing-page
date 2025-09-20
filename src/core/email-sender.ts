@@ -36,20 +36,21 @@ export async function sendRegisterEmail({
 
   for (const member of data.members) {
     console.log("Preparing email for:", member.email);
-    await ses.send(
-      new SendEmailCommand({
-        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
-        Destination: {
-          ToAddresses: [member.email],
-        },
-        Message: {
-          Subject: {
-            Data: "Bienvenido al Hackathon 2025",
-            Charset: "UTF-8",
+    try {
+      await ses.send(
+        new SendEmailCommand({
+          Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
+          Destination: {
+            ToAddresses: [member.email],
           },
-          Body: {
-            Html: {
-              Data: `
+          Message: {
+            Subject: {
+              Data: "Bienvenido al Hackathon 2025",
+              Charset: "UTF-8",
+            },
+            Body: {
+              Html: {
+                Data: `
 <html>
   <body
     style="
@@ -90,15 +91,46 @@ export async function sendRegisterEmail({
   </body>
 </html>
             `
-                .replace("{{team}}", data.teamName)
-                .replace("{{user}}", member.name),
+                  .replace("{{team}}", data.teamName)
+                  .replace("{{user}}", member.name),
+                Charset: "UTF-8",
+              },
+            },
+          },
+        })
+      );
+    } catch (e) {
+      console.log(`Email sent to ${member.email}`);
+    }
+  }
+
+  // Notification email to admin
+  try {
+    await ses.send(
+      new SendEmailCommand({
+        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
+        Destination: {
+          ToAddresses: ["contact@mtocommunity.com"],
+        },
+        Message: {
+          Subject: {
+            Data: `Nuevo registro: ${data.teamName}`,
+            Charset: "UTF-8",
+          },
+          Body: {
+            Text: {
+              Data: `Nuevo equipo registrado: ${
+                data.teamName
+              }\n\nMiembros:\n${data.members
+                .map((m) => `- ${m.name} (${m.email})`)
+                .join("\n")}`,
               Charset: "UTF-8",
             },
           },
         },
       })
     );
-
-    console.log(`Email sent to ${member.email}`);
+  } catch (e) {
+    console.error("Error sending admin notification email:", e);
   }
 }
