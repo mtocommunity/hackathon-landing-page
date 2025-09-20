@@ -36,21 +36,20 @@ export async function sendRegisterEmail({
 
   for (const member of data.members) {
     console.log("Preparing email for:", member.email);
-    ses
-      .send(
-        new SendEmailCommand({
-          Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
-          Destination: {
-            ToAddresses: [member.email],
+    await ses.send(
+      new SendEmailCommand({
+        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
+        Destination: {
+          ToAddresses: [member.email],
+        },
+        Message: {
+          Subject: {
+            Data: "Bienvenido al Hackathon 2025",
+            Charset: "UTF-8",
           },
-          Message: {
-            Subject: {
-              Data: "Bienvenido al Hackathon 2025",
-              Charset: "UTF-8",
-            },
-            Body: {
-              Html: {
-                Data: `
+          Body: {
+            Html: {
+              Data: `
 <html>
   <body
     style="
@@ -91,32 +90,15 @@ export async function sendRegisterEmail({
   </body>
 </html>
             `
-                  .replace("{{team}}", data.teamName)
-                  .replace("{{user}}", member.name),
-                Charset: "UTF-8",
-              },
+                .replace("{{team}}", data.teamName)
+                .replace("{{user}}", member.name),
+              Charset: "UTF-8",
             },
           },
-        })
-      )
-      .then(() => {
-        console.log(`Email sent to ${member.email}`);
+        },
       })
-      .catch((err) => {
-        console.error(`Error sending email to ${member.email}:`, err);
-        setTimeout(() => {
-          sendRegisterEmail({
-            AWS_REGION,
-            AWS_ACCESS_KEY_ID,
-            AWS_SECRET_ACCESS_KEY,
-            data: {
-              teamName: data.teamName,
-              members: [member],
-            },
-            ttl: ttl - 1,
-          });
-        }, 30 * 1000);
-        console.error("Error sending email:", err);
-      });
+    );
+
+    console.log(`Email sent to ${member.email}`);
   }
 }
