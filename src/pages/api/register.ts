@@ -122,7 +122,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const verifyData: any = await verifyResponse.json();
     if (!(verifyData?.success as boolean)) {
       return new Response(
-        JSON.stringify({ error: "No se pudo validad que no seas un robot" }),
+        JSON.stringify({ error: "No se pudo validar que no seas un robot" }),
         {
           status: 400,
         }
@@ -247,10 +247,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     sendRegisterEmail({
-      AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
-      AWS_ACCESS_KEY_ID: (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
+      AWS_REGION: (locals.runtime.env.AWS_REGION as string) || "",
+      AWS_ACCESS_KEY_ID: (locals.runtime.env.AWS_ACCESS_KEY_ID as string) || "",
       AWS_SECRET_ACCESS_KEY:
-        (locals.runtime.env.AWS_SECRET_ACCESS_KEY as string) ?? "",
+        (locals.runtime.env.AWS_SECRET_ACCESS_KEY as string) || "",
       data: {
         teamName: team.name,
         members: members.map((x) => {
