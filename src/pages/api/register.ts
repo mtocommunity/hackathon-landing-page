@@ -246,7 +246,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw e;
     }
 
-    sendRegisterEmail({
+    await sendRegisterEmail({
       AWS_REGION: (locals.runtime.env.AWS_REGION as string) || "",
       AWS_ACCESS_KEY_ID: (locals.runtime.env.AWS_ACCESS_KEY_ID as string) || "",
       AWS_SECRET_ACCESS_KEY:
