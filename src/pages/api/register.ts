@@ -246,21 +246,32 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw e;
     }
 
-    sendRegisterEmail({
-      AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
-      AWS_ACCESS_KEY_ID: (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
-      AWS_SECRET_ACCESS_KEY:
-        (locals.runtime.env.AWS_SECRET_ACCESS_KEY as string) ?? "",
-      data: {
-        teamName: team.name,
-        members: members.map((x) => {
-          return {
-            name: `${x.name} ${x.last_name}`,
-            email: x.email,
-          };
+    try {
+      sendRegisterEmail({
+        AWS_REGION: (locals.runtime.env.AWS_REGION as string) ?? "",
+        AWS_ACCESS_KEY_ID:
+          (locals.runtime.env.AWS_ACCESS_KEY_ID as string) ?? "",
+        AWS_SECRET_ACCESS_KEY:
+          (locals.runtime.env.AWS_SECRET_ACCESS_KEY as string) ?? "",
+        data: {
+          teamName: team.name,
+          members: members.map((x) => {
+            return {
+              name: `${x.name} ${x.last_name}`,
+              email: x.email,
+            };
+          }),
+        },
+      });
+    } catch (e) {
+      console.error("Error al enviar emails de registro:", e);
+      return new Response(
+        JSON.stringify({
+          error: "Error al enviar los correos de confirmación",
         }),
-      },
-    });
+        { status: 500 }
+      );
+    }
 
     return new Response(
       JSON.stringify({
