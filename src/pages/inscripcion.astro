@@ -146,6 +146,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
         <div class="pt-6 border-t border-gray-200">
           <div class="text-center">
             <button
+              id="submitBtn"
               type="submit"
               class="px-12 py-4 bg-gradient-to-r from-primary via-secondary to-primary text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 font-primary text-lg animate-gradient bg-[length:200%_200%] mb-7 md:mb-0 cursor-pointer"
             >
@@ -166,6 +167,30 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
 </Layout>
 
 <script is:inline>
+  function loadSubmitButton() {
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add("opacity-50");
+      submitBtn.style.scale = ".9";
+      submitBtn.style.cursor = "not-allowed";
+      submitBtn.style.pointerEvents = "none";
+      submitBtn.textContent = "Enviando...";
+    }
+  }
+
+  function enableSubmitButton() {
+    const submitBtn = document.getElementById("submitBtn");
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("opacity-50");
+      submitBtn.style.cursor = "pointer";
+      submitBtn.style.scale = "1";
+      submitBtn.style.pointerEvents = "auto";
+      submitBtn.textContent = "Inscribir Equipo";
+    }
+  }
+
   class InscriptionForm {
     constructor() {
       this.memberCount = 0;
@@ -368,6 +393,7 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
 
     async handleSubmit(e) {
       e.preventDefault();
+      loadSubmitButton();
 
       try {
         // Recopilar datos del formulario
@@ -432,12 +458,14 @@ import TurnstileWidget from "../components/TurnstileWidget.tsx";
             "error"
           );
         }
+        enableSubmitButton();
       } catch (error) {
         console.error("Error al enviar inscripción:", error);
         this.showMessage(
           "Error al enviar la inscripción. Por favor, inténtalo de nuevo.",
           "error"
         );
+        enableSubmitButton();
       }
     }
   }
