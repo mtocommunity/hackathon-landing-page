@@ -2,18 +2,38 @@
 import Logo from "../components/Logo.astro";
 import Layout from "../layouts/Layout.astro";
 import Title from "../components/Title.astro";
+import JuryCard from "../components/JuryCard.astro";
+
+const juries = [
+    { name: "Ing. Pedrito Piedrita", role: "Coordinador", image: "/images/member-def.png" },
+    { name: "Ing. Juan Perez", role: "Coordinador", image: "/images/member-def.png" },
+    { name: "Ing. Maria Sanchez", role: "Coordinadora", image: "/images/member-def.png" },
+    { name: "Ing. Pablo Backy", role: "Coordinador", image: "/images/member-def.png" },
+];
 ---
 
 <Layout>
     <Logo/>
 
-    <div class="text-center mx-auto">
-        <Title content="Jurado"/>
-    
-        <p class="font-secondary font-thin text-lg md:text-xl mx-auto text-center mt-4">
-        El jurado se revelará el 22 de septiembre.
-        </p>
-    </div>
+        <!-- Container with gradient border to match the screenshot vibe -->
+        <section class="max-w-5xl mx-auto px-4 my-6">
+            <div class="relative rounded-2xl p-[2px] bg-gradient-to-br from-secondary via-white to-primary">
+                <div class="rounded-2xl bg-white p-6 md:p-10">
+                    <div class="text-center mx-auto max-w-3xl">
+                        <Title content="Jurado"/>
+                        <p class="font-secondary font-thin text-sm md:text-base mx-auto text-center mt-4 text-gray-700">
+                            El jurado está integrado por docentes y profesionales destacados, quienes evaluarán con rigor académico y experiencia práctica los proyectos,
+                            fomentando la creatividad, la innovación y el espíritu emprendedor de los estudiantes.
+                        </p>
+                    </div>
 
-    <div class="my-10"></div>
+                    <!-- Grid of jury cards -->
+                    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10">
+                        {juries.map((j) => (
+                            <JuryCard name={j.name} role={j.role} image={j.image} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
 </Layout>

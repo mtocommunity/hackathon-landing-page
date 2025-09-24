@@ -14,7 +14,6 @@ export default defineConfig({
   output: "server",
 
   vite: {
-    //@ts-expect-error
     plugins: [tailwindcss()],
   },
 
