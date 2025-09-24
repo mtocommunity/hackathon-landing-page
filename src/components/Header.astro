@@ -8,7 +8,7 @@ const { class: className = "" } = Astro.props;
 
 <!-- QUE VIVA TELWIN -->
 <header
-  class={`fixed top-0 left-0 right-0 z-[1220] bg-transparent border-b border-white/60 backdrop-blur-xl h-20 transition-all duration-300 ${className}`}
+  class={`fixed left-0 right-0 z-[1220] bg-transparent border-b border-white/60 backdrop-blur-xl mx-7 top-7 rounded-xl h-20 transition-all duration-300 ${className}`}
 >
   <div
     class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 transition-opacity duration-300 pointer-events-none opacity-5"
@@ -44,28 +44,38 @@ const { class: className = "" } = Astro.props;
           <a
             href="/"
             class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40"
-            >Inicio</a>
+            >Inicio</a
+          >
         </li>
         <li>
           <a
             href="/bases"
             class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40"
-            >Bases</a>
+            >Bases</a
+          >
         </li>
         <li>
           <a
             href="/jurado"
             class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40"
-            >Jurado</a>
+            >Jurado</a
+          >
         </li>
         <li>
           <a
             href="/staff"
             class="nav-link block px-5 py-3 no-underline text-gray-600 font-medium text-base rounded-lg transition-all duration-300 whitespace-nowrap bg-gradient-to-br from-gray-100 to-gray-200 border border-white/40 relative hover:text-gray-800 hover:-translate-y-1 hover:scale-105 hover:shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/40"
-            >Staff</a>
+            >Staff</a
+          >
         </li>
         <!-- Inscription -->
-        <li><a href="/inscripcion" class="nav-link--cta bg-gradient-to-r from-primary to-secondary text-white font-semibold shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] border border-white/80 relative ml-4 px-6 py-3 rounded-lg transition-all duration-300 ease-out hover:from-primary/90 hover:to-secondary/90 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15),0_0_20px_rgba(139,92,246,0.4)] hover:border-purple-400/60">Inscríbete</a></li>
+        <li>
+          <a
+            href="/inscripcion"
+            class="nav-link--cta bg-gradient-to-r from-primary to-secondary text-white font-semibold shadow-[inset_-2px_-2px_5px_rgba(255,255,255,0.7),inset_2px_2px_5px_rgba(0,0,0,0.1),0_0_20px_rgba(59,130,246,0.3)] border border-white/80 relative ml-4 px-6 py-3 rounded-lg transition-all duration-300 ease-out hover:from-primary/90 hover:to-secondary/90 hover:-translate-y-1 hover:scale-105 hover:shadow-[0_8px_25px_rgba(0,0,0,0.15),0_0_20px_rgba(139,92,246,0.4)] hover:border-purple-400/60"
+            >Inscríbete</a
+          >
+        </li>
       </ul>
     </div>
 
