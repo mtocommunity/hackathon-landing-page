@@ -1,4 +1,4 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { AwsClient } from "aws4fetch";
 
 export async function sendRegisterEmail({
   AWS_REGION,
@@ -24,12 +24,11 @@ export async function sendRegisterEmail({
     return;
   }
 
-  const ses = new SESClient({
+  const aws = new AwsClient({
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+    service: "ses",
     region: AWS_REGION,
-    credentials: {
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    },
   });
 
   console.log("Sending email to:", data.members.map((x) => x.email).join(", "));
@@ -37,20 +36,29 @@ export async function sendRegisterEmail({
   for (const member of data.members) {
     console.log("Preparing email for:", member.email);
     try {
-      await ses.send(
-        new SendEmailCommand({
-          Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
-          Destination: {
-            ToAddresses: [member.email],
+      await aws.fetch(
+        "https://email." +
+          AWS_REGION +
+          ".amazonaws.com/v2/email/outbound-emails",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
           },
-          Message: {
-            Subject: {
-              Data: "Bienvenido al Hackathon 2025",
-              Charset: "UTF-8",
+          body: JSON.stringify({
+            FromEmailAddress: "Hackathon 2025 <hackathon@mtocommunity.com>",
+            Destination: {
+              ToAddresses: [member.email],
             },
-            Body: {
-              Html: {
-                Data: `
+            Content: {
+              Simple: {
+                Subject: {
+                  Data: "Bienvenido al Hackathon 2025",
+                },
+
+                Body: {
+                  Html: {
+                    Data: `
 <html>
   <body
     style="
@@ -91,13 +99,14 @@ export async function sendRegisterEmail({
   </body>
 </html>
             `
-                  .replace("{{team}}", data.teamName)
-                  .replace("{{user}}", member.name),
-                Charset: "UTF-8",
+                      .replace("{{team}}", data.teamName)
+                      .replace("{{user}}", member.name),
+                  },
+                },
               },
             },
-          },
-        })
+          }),
+        }
       );
     } catch (e) {
       console.log(`Email sent to ${member.email}`);
@@ -106,29 +115,37 @@ export async function sendRegisterEmail({
 
   // Notification email to admin
   try {
-    await ses.send(
-      new SendEmailCommand({
-        Source: "Hackathon 2025 <hackathon@mtocommunity.com>",
-        Destination: {
-          ToAddresses: ["contact@mtocommunity.com"],
+    await aws.fetch(
+      "https://email." + AWS_REGION + ".amazonaws.com/v2/email/outbound-emails",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
         },
-        Message: {
-          Subject: {
-            Data: `Nuevo registro: ${data.teamName}`,
-            Charset: "UTF-8",
+        body: JSON.stringify({
+          FromEmailAddress: "Hackathon 2025 <hackathon@mtocommunity.com>",
+          Destination: {
+            ToAddresses: ["contact@mtocommunity.com"],
           },
-          Body: {
-            Text: {
-              Data: `Nuevo equipo registrado: ${
-                data.teamName
-              }\n\nMiembros:\n${data.members
-                .map((m) => `- ${m.name} (${m.email})`)
-                .join("\n")}`,
-              Charset: "UTF-8",
+          Content: {
+            Simple: {
+              Subject: {
+                Data: "Bienvenido al Hackathon 2025",
+              },
+
+              Body: {
+                Text: {
+                  Data: `Nuevo equipo registrado: ${
+                    data.teamName
+                  }\n\nMiembros:\n${data.members
+                    .map((m) => `- ${m.name} (${m.email})`)
+                    .join("\n")}`,
+                },
+              },
             },
           },
-        },
-      })
+        }),
+      }
     );
   } catch (e) {
     console.error("Error sending admin notification email:", e);
