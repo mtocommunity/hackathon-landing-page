@@ -93,6 +93,18 @@ const RegistrationSchema = z
   });
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  if (new Date().getTime() > new Date("2025-09-29T23:59:59-05:00").getTime()) {
+    return new Response(
+      JSON.stringify({
+        error:
+          "El periodo de registro ha finalizado. Puedes intentar contactarte por correo a contact@mtocommunity.com pero no garantizamos una respuesta positiva.",
+      }),
+      {
+        status: 400,
+      }
+    );
+  }
+
   let turnstileToken = request.headers.get("Authorization");
   if (!turnstileToken) {
     return new Response(
