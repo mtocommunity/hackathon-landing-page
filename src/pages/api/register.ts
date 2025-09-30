@@ -100,6 +100,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         error:
           "El periodo de registro ha finalizado. Puedes intentar contactarte por correo a contact@mtocommunity.com pero no garantizamos una respuesta positiva.",
       }),
+      {
         status: 400,
       }
     );
