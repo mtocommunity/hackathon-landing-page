@@ -2,9 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Title from "../components/Title.astro";
 import Card from "../components/Card.astro";
-import InscriptionButton from "../components/InscriptionButton.astro";
 import Logo from "../components/Logo.astro";
-import Countdown from "../components/Countdown.astro";
 
 // Features del evento
 const features = [
@@ -50,9 +48,43 @@ const features = [
     Construyendo un futuro tecnológico desde Perú para el mundo
   </p>
 
-  <!-- <Countdown targetDateStr="2025-09-17T17:00:00" /> -->
+  <ul
+    class="flex flex-col gap-10 py-10 mb-10 font-secondary md:flex-row md:gap-14"
+  >
+    <li class="flex flex-col items-center">
+      <span class="text-4xl font-bold anim-counter" data-target="8">0</span>
+      <div
+        class="bg-gradient-to-r from-primary via-tertiary to-secondary w-1/2 h-1 rounded-full"
+      >
+      </div>
+      <h4 class="text-xl">Equipos</h4>
+    </li>
+    <li class="flex flex-col items-center">
+      <span class="text-4xl font-bold anim-counter" data-target="40">+0</span>
+      <div
+        class="bg-gradient-to-r from-primary via-tertiary to-secondary w-1/3 h-1 rounded-full"
+      >
+      </div>
+      <h4 class="text-xl">Participantes</h4>
+    </li>
+    <li class="flex flex-col items-center">
+      <span class="text-4xl font-bold anim-counter" data-target="48">0</span>
+      <div
+        class="bg-gradient-to-r from-primary via-tertiary to-secondary w-1/2 h-1 rounded-full"
+      >
+      </div>
+      <h4 class="text-xl">Horas</h4>
+    </li>
+  </ul>
 
-  <InscriptionButton />
+  <div class="relative w-full flex justify-center items-center mb-20">
+    <a
+      href="/projects-2025"
+      class="px-2 md:px-12 py-4 bg-gradient-to-r from-primary via-secondary to-primary text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-300 font-primary text-lg animate-gradient bg-[length:200%_200%]"
+    >
+      Revisa los proyectos desarrollados
+    </a>
+  </div>
 
   <!-- About Section -->
   <section class="section">
@@ -123,4 +155,27 @@ const features = [
       </div>
     </div>
   </section>
+  <script>
+    setTimeout(() => {
+      const counters = document.querySelectorAll(".anim-counter");
+      counters.forEach((counter) => {
+        let count = 0;
+        const format = counter.innerHTML;
+        const updateCount = (format: string, target: number) => {
+          if (count < target) {
+            if (target - count > 10) {
+              count += 5;
+            } else {
+              count++;
+            }
+            counter.innerHTML = format.replace("0", count.toString());
+            setTimeout(() => updateCount(format, target), 50);
+          } else {
+            counter.innerHTML = format.replace("0", target.toString());
+          }
+        };
+        updateCount(format, parseInt(counter.getAttribute("data-target")!));
+      });
+    }, 1000);
+  </script>
 </Layout>
