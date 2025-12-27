@@ -9,5 +9,9 @@ import react from "@astrojs/react";
 export default defineConfig({
   output: "static",
 
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
   integrations: [react()],
 });
